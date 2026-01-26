@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ruang Riset Kita | Harmoni Data, Musik & Jiwa</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Playfair Display', serif; }
+        .bg-navy { background-color: #0a192f; }
+        .text-gold { color: #d4af37; }
+        .bg-gold { background-color: #d4af37; }
+        
+        #mobile-menu {
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(100%);
+        }
+        #mobile-menu.open {
+            transform: translateX(0);
+        }
+
+        .music-wave {
+            display: flex;
+            align-items: flex-end;
+            gap: 2px;
+            height: 20px;
+        }
+        .music-wave span {
+            width: 3px;
+            background: #d4af37;
+            animation: wave 1s ease-in-out infinite;
+        }
+        @keyframes wave {
+            0%, 100% { height: 5px; }
+            50% { height: 20px; }
+        }
+
+        .progress-bar-inner {
+            transition: width 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Header / Nav -->
+    <nav id="navbar" class="fixed w-full z-50 transition-all duration-300 py-4 px-4 md:px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3 cursor-pointer" onclick="window.scrollTo(0,0)">
+                <div class="w-10 h-10 bg-navy rounded-xl flex items-center justify-center shadow-lg border border-gold/20">
+                    <span class="text-gold font-serif font-bold text-xl">R</span>
+                </div>
+                <div class="leading-tight">
+                    <span class="font-serif font-bold text-lg md:text-xl text-navy">RuangRisetKita<span class="text-gold">.id</span></span>
+                    <div class="flex items-center gap-1">
+                        <span class="text-[8px] uppercase font-bold tracking-[0.2em] text-slate-400">Data • Music • Soul</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="hidden lg:flex gap-8 items-center">
+                <a href="#filosofi" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-navy transition-colors">Filosofi</a>
+                <a href="#layanan" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-navy transition-colors">Riset</a>
+                <a href="#screening" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-navy transition-colors">Screening</a>
+                <a href="#toko" class="text-[10px] font-bold uppercase tracking-widest text-slate-500 hover:text-navy transition-colors">Toko</a>
+                <button onclick="openCart()" class="relative p-2 text-navy hover:bg-slate-100 rounded-full transition-all">
+                    <i data-lucide="shopping-bag" size="20"></i>
+                    <span id="cart-count" class="absolute -top-1 -right-1 bg-gold text-white text-[9px] w-5 h-5 rounded-full flex items-center justify-center hidden border-2 border-white">0</span>
+                </button>
+                <a href="#kontak" class="bg-navy text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-slate-800 transition-all shadow-lg">Mulai Kolaborasi</a>
+            </div>
+
+            <div class="flex lg:hidden items-center gap-4">
+                <button onclick="openCart()" class="p-2 text-navy"><i data-lucide="shopping-bag"></i></button>
+                <button onclick="toggleMenu()" class="p-2 text-navy"><i data-lucide="menu"></i></button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 z-[100] bg-navy p-10 flex flex-col gap-8 lg:hidden">
+        <div class="flex justify-end"><button onclick="toggleMenu()" class="text-white"><i data-lucide="x" size="32"></i></button></div>
+        <div class="flex flex-col gap-6">
+            <a href="#filosofi" onclick="toggleMenu()" class="text-2xl font-serif font-bold text-white">Filosofi Kami</a>
+            <a href="#layanan" onclick="toggleMenu()" class="text-2xl font-serif font-bold text-white">Riset & Data</a>
+            <a href="#screening" onclick="toggleMenu()" class="text-2xl font-serif font-bold text-white">Screening Jiwa</a>
+            <a href="#toko" onclick="toggleMenu()" class="text-2xl font-serif font-bold text-white">Toko Digital</a>
+        </div>
+        <button onclick="openWA('Halo RRK, saya tertarik berkolaborasi.')" class="mt-auto bg-gold text-navy py-4 rounded-2xl font-bold flex items-center justify-center gap-2">
+            <i data-lucide="message-circle"></i> Hubungi Kami
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 px-6 text-center max-w-5xl mx-auto">
+        <div class="inline-flex items-center gap-3 px-4 py-2 bg-slate-100 text-navy text-[10px] md:text-xs font-bold rounded-full mb-8 uppercase tracking-widest border border-slate-200">
+            <div class="music-wave"><span></span><span style="animation-delay: 0.2s"></span><span style="animation-delay: 0.4s"></span></div>
+            Dimana Logika Bertemu Harmoni
+        </div>
+        <h1 class="text-4xl md:text-7xl font-serif font-bold mb-8 leading-tight text-navy">
+            Menemukan Makna Melalui <span class="text-gold italic">Data & Nada</span>.
+        </h1>
+        <p class="text-slate-500 mb-12 text-sm md:text-xl max-w-2xl mx-auto leading-relaxed">
+            Kami memadukan ketajaman riset ilmiah dengan kekuatan musik untuk membantu Anda mencapai mahakarya riset dengan jiwa yang tetap tenang.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#screening" class="bg-navy text-white px-10 py-5 rounded-full font-bold shadow-2xl hover:bg-slate-800 transition-all transform hover:scale-105 flex items-center justify-center gap-2">
+                <i data-lucide="heart"></i> Mulai Screening
+            </a>
+            <a href="#toko" class="border-2 border-gold text-gold px-10 py-5 rounded-full font-bold hover:bg-gold hover:text-white transition-all flex items-center justify-center gap-2">
+                <i data-lucide="shopping-bag"></i> Toko Digital
+            </a>
+        </div>
+    </section>
+
+    <!-- Section: Screening DASS-21 -->
+    <section id="screening" class="py-24 px-6 bg-slate-100">
+        <div class="max-w-4xl mx-auto bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl border border-slate-200">
+            <div id="screening-intro" class="text-center">
+                <div class="w-20 h-20 bg-gold/10 rounded-3xl flex items-center justify-center mx-auto mb-8 text-gold">
+                    <i data-lucide="activity" size="40"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-serif font-bold mb-4 text-navy">Digital Screening DASS-21</h2>
+                <p class="text-slate-500 mb-10 text-sm md:text-lg max-w-xl mx-auto leading-relaxed">
+                    Ukur tingkat stres, kecemasan, dan depresi Anda menggunakan instrumen standar emas akademik. Proses ini hanya memakan waktu 2-3 menit.
+                </p>
+                <button onclick="startScreening()" class="bg-navy text-white px-12 py-4 rounded-full font-bold shadow-xl hover:bg-slate-800 transition-all">Mulai Tes Sekarang</button>
+                <p class="mt-8 text-[10px] text-slate-400 italic">Instrumen dikembangkan oleh Lovibond, S.H. & Lovibond, P.F. (1995).</p>
+            </div>
+
+            <div id="screening-quiz" class="hidden">
+                <div class="mb-12">
+                    <div class="flex justify-between items-end mb-4">
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-gold">Progress Riset Jiwa</span>
+                        <span id="quiz-counter" class="text-xs font-bold text-slate-400 tracking-widest">1 / 21</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                        <div id="quiz-progress" class="bg-gold h-full progress-bar-inner" style="width: 5%"></div>
+                    </div>
+                </div>
+                <h3 id="quiz-question" class="text-xl md:text-3xl font-serif font-bold text-navy mb-12 leading-tight">...</h3>
+                <div class="grid grid-cols-1 gap-4">
+                    <button onclick="handleAnswer(0)" class="w-full text-left p-6 border-2 border-slate-100 rounded-2xl hover:border-gold hover:bg-slate-50 transition-all text-sm font-medium">0 - Tidak pernah sama sekali</button>
+                    <button onclick="handleAnswer(1)" class="w-full text-left p-6 border-2 border-slate-100 rounded-2xl hover:border-gold hover:bg-slate-50 transition-all text-sm font-medium">1 - Kadang-kadang / Jarang</button>
+                    <button onclick="handleAnswer(2)" class="w-full text-left p-6 border-2 border-slate-100 rounded-2xl hover:border-gold hover:bg-slate-50 transition-all text-sm font-medium">2 - Sering / Cukup banyak waktu</button>
+                    <button onclick="handleAnswer(3)" class="w-full text-left p-6 border-2 border-slate-100 rounded-2xl hover:border-gold hover:bg-slate-50 transition-all text-sm font-medium">3 - Sangat sering / Sebagian besar waktu</button>
+                </div>
+            </div>
+
+            <div id="screening-result" class="hidden text-center">
+                <h3 class="text-3xl font-serif font-bold mb-2 text-navy">Laporan Harmoni Jiwa</h3>
+                <p class="text-slate-400 mb-12 text-sm italic">Status Anda berdasarkan interpretasi data DASS-21</p>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12 text-left">
+                    <div class="p-8 bg-slate-50 rounded-[2rem] border border-slate-100">
+                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Depresi</div>
+                        <div id="status-d" class="text-2xl font-bold text-navy">Normal</div>
+                    </div>
+                    <div class="p-8 bg-slate-50 rounded-[2rem] border border-slate-100">
+                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Kecemasan</div>
+                        <div id="status-a" class="text-2xl font-bold text-navy">Normal</div>
+                    </div>
+                    <div class="p-8 bg-slate-50 rounded-[2rem] border border-slate-100">
+                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Stres</div>
+                        <div id="status-s" class="text-2xl font-bold text-navy">Normal</div>
+                    </div>
+                </div>
+                <div class="bg-navy text-white p-10 rounded-[3rem] mb-12 text-left shadow-2xl">
+                    <h4 class="text-gold font-bold mb-4 uppercase tracking-widest text-xs">Saran Pendampingan</h4>
+                    <p id="recommendation-text" class="text-lg md:text-xl leading-relaxed">...</p>
+                </div>
+                <button onclick="openWA('Halo RRK, saya ingin konsultasi hasil DASS-21 saya.')" class="bg-gold text-navy px-10 py-4 rounded-full font-bold shadow-lg">Konsultasi via WhatsApp</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Toko Section -->
+    <section id="toko" class="py-24 px-6 bg-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold text-center mb-16">Toko Digital RRK</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- App Shalawat -->
+                <div class="bg-slate-50 p-8 rounded-[3rem] border border-slate-100 hover:shadow-2xl transition-all group">
+                    <div class="flex justify-between items-start mb-8">
+                        <i data-lucide="music-2" class="text-gold" size="32"></i>
+                        <span class="text-[9px] font-bold bg-navy text-white px-2 py-1 rounded-full uppercase">App</span>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-2">Aplikasi Shalawat</h3>
+                    <p class="text-slate-400 text-xs mb-8">Koleksi shalawat penenang jiwa untuk kedamaian batin.</p>
+                    <button onclick="addToCart('Aplikasi Shalawat', 100000)" class="w-full py-4 bg-navy text-white rounded-2xl font-bold">Rp 100.000 <i data-lucide="plus" size="16" class="inline ml-1"></i></button>
+                </div>
+                <!-- App Mirror of Me -->
+                <div class="bg-slate-50 p-8 rounded-[3rem] border border-slate-100 hover:shadow-2xl transition-all group">
+                    <div class="flex justify-between items-start mb-8">
+                        <i data-lucide="sparkles" class="text-gold" size="32"></i>
+                        <span class="text-[9px] font-bold bg-navy text-white px-2 py-1 rounded-full uppercase">App</span>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-2">Mirror of Me</h3>
+                    <p class="text-slate-400 text-xs mb-8">Aplikasi refleksi diri harian untuk kesehatan mental.</p>
+                    <button onclick="addToCart('Mirror of Me App', 150000)" class="w-full py-4 bg-navy text-white rounded-2xl font-bold">Rp 150.000 <i data-lucide="plus" size="16" class="inline ml-1"></i></button>
+                </div>
+                <!-- Soundscape -->
+                <div class="bg-slate-50 p-8 rounded-[3rem] border border-slate-100 hover:shadow-2xl transition-all group">
+                    <div class="flex justify-between items-start mb-8">
+                        <i data-lucide="headphones" class="text-gold" size="32"></i>
+                        <span class="text-[9px] font-bold bg-navy text-white px-2 py-1 rounded-full uppercase">Audio</span>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-2">Focus Soundscape</h3>
+                    <p class="text-slate-400 text-xs mb-8">Audio binaural untuk meningkatkan konsentrasi riset.</p>
+                    <button onclick="addToCart('Focus Soundscape', 85000)" class="w-full py-4 bg-navy text-white rounded-2xl font-bold">Rp 85.000 <i data-lucide="plus" size="16" class="inline ml-1"></i></button>
+                </div>
+                <!-- MH Kit -->
+                <div class="bg-slate-50 p-8 rounded-[3rem] border border-slate-100 hover:shadow-2xl transition-all group">
+                    <div class="flex justify-between items-start mb-8">
+                        <i data-lucide="clipboard-check" class="text-gold" size="32"></i>
+                        <span class="text-[9px] font-bold bg-navy text-white px-2 py-1 rounded-full uppercase">Tools</span>
+                    </div>
+                    <h3 class="text-2xl font-serif font-bold mb-2">Mental Health Kit</h3>
+                    <p class="text-slate-400 text-xs mb-8">Instrumen screening digital interaktif mandiri.</p>
+                    <button onclick="addToCart('Mental Health Tool', 125000)" class="w-full py-4 bg-navy text-white rounded-2xl font-bold">Rp 125.000 <i data-lucide="plus" size="16" class="inline ml-1"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="kontak" class="bg-navy text-white py-20 text-center">
+        <div class="font-serif font-bold text-2xl mb-4">RuangRisetKita<span class="text-gold">.id</span></div>
+        <p class="text-white/40 text-[10px] tracking-[0.3em] uppercase mb-8">Data • Music • Soul</p>
+        <p class="text-[9px] text-white/20 font-bold uppercase tracking-[0.2em]">© 2026 Harmoni Data & Jiwa</p>
+    </footer>
+
+    <!-- Modals & Cart Logic -->
+    <div id="cart-sidebar" class="fixed inset-0 z-[200] hidden">
+        <div class="absolute inset-0 bg-navy/80 backdrop-blur-md" onclick="closeCart()"></div>
+        <div class="absolute right-0 top-0 w-full md:max-w-md h-full bg-white shadow-2xl p-8 flex flex-col">
+            <h3 class="text-2xl font-serif font-bold mb-8 flex justify-between">Keranjang <button onclick="closeCart()"><i data-lucide="x"></i></button></h3>
+            <div id="cart-items" class="flex-grow space-y-4"></div>
+            <div id="cart-footer" class="pt-8 border-t mt-8 hidden">
+                <div class="flex justify-between font-bold mb-8"><span>Total</span><span id="cart-total">Rp 0</span></div>
+                <button onclick="goToPayment()" class="w-full bg-navy text-white py-5 rounded-full font-bold">Bayar Sekarang</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="fixed inset-0 z-[300] bg-white hidden flex flex-col items-center justify-center p-6">
+        <div class="max-w-md w-full text-center">
+            <div class="bg-navy text-white p-10 rounded-[3rem] mb-8">
+                <p class="text-white/40 text-[10px] font-bold mb-2">Tagihan</p>
+                <h4 id="payment-total" class="text-4xl font-bold text-gold">Rp 0</h4>
+            </div>
+            <div class="bg-slate-50 p-10 rounded-[3rem] border mb-8"><i data-lucide="qr-code" size="200" class="mx-auto mb-4"></i><p class="text-[10px] text-slate-400 font-bold uppercase">Scan QRIS Untuk Bayar</p></div>
+            <button onclick="confirmPaid()" class="w-full bg-gold text-navy py-5 rounded-full font-bold shadow-xl">Konfirmasi Sudah Bayar</button>
+            <button onclick="closePayment()" class="mt-4 text-slate-400 text-xs">Batal</button>
+        </div>
+    </div>
+
+    <div id="success-modal" class="fixed inset-0 z-[400] bg-white flex items-center justify-center p-8 hidden">
+        <div class="text-center"><i data-lucide="check-circle" size="64" class="text-gold mx-auto mb-8"></i><h3 class="text-3xl font-serif font-bold mb-4">Harmoni Dimulai!</h3><p class="text-slate-500 mb-10">Akses sedang dikirim via WhatsApp.</p><button onclick="location.reload()" class="bg-navy text-white px-12 py-4 rounded-full font-bold">Siap!</button></div>
+    </div>
+
+    <!-- Floating WA -->
+    <button onclick="openWA('Halo Ruang Riset Kita, saya tertarik berkolaborasi.')" class="fixed bottom-8 right-8 w-16 h-16 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl z-40 animate-pulse"><i data-lucide="message-circle" size="32"></i></button>
+
+    <script>
+        lucide.createIcons();
+        const waNumber = "6282125256660";
+        
+        // DASS-21 Logic
+        const questions = [
+            { t: "Saya merasa sulit untuk tenang.", c: "s" },
+            { t: "Saya merasa mulut saya kering.", c: "a" },
+            { t: "Saya seolah tidak dapat merasakan perasaan positif sama sekali.", c: "d" },
+            { t: "Saya mengalami kesulitan bernapas.", c: "a" },
+            { t: "Saya merasa sulit untuk berinisiatif melakukan sesuatu.", c: "d" },
+            { t: "Saya cenderung bereaksi berlebihan terhadap situasi.", c: "s" },
+            { t: "Saya merasa gemetar (misalnya di tangan).", c: "a" },
+            { t: "Saya merasa saya menghabiskan banyak energi karena merasa cemas.", c: "s" },
+            { t: "Saya merasa khawatir dengan situasi dimana saya mungkin menjadi panik.", c: "a" },
+            { t: "Saya merasa bahwa tidak ada hal baik yang dapat ditunggu di masa depan.", c: "d" },
+            { t: "Saya merasa gelisah.", c: "s" },
+            { t: "Saya merasa sulit untuk bersantai.", c: "s" },
+            { t: "Saya merasa sedih dan tertekan.", c: "d" },
+            { t: "Saya tidak dapat memaklumi hal apapun yang menghalangi saya.", c: "s" },
+            { t: "Saya merasa hampir panik.", c: "a" },
+            { t: "Saya merasa tidak antusias terhadap apapun.", c: "d" },
+            { t: "Saya merasa saya tidak berharga sebagai seorang manusia.", c: "d" },
+            { t: "Saya merasa bahwa saya cukup mudah tersinggung.", c: "s" },
+            { t: "Saya menyadari detak jantung saya meskipun saya tidak sedang berolahraga.", c: "a" },
+            { t: "Saya merasa takut tanpa alasan yang jelas.", c: "a" },
+            { t: "Saya merasa bahwa hidup ini tidak berarti.", c: "d" }
+        ];
+
+        let currentIdx = 0;
+        let scores = { d: 0, a: 0, s: 0 };
+
+        function startScreening() { document.getElementById('screening-intro').classList.add('hidden'); document.getElementById('screening-quiz').classList.remove('hidden'); renderQuestion(); }
+        function renderQuestion() { document.getElementById('quiz-question').innerText = questions[currentIdx].t; document.getElementById('quiz-counter').innerText = `${currentIdx + 1} / 21`; document.getElementById('quiz-progress').style.width = `${((currentIdx + 1) / 21) * 100}%`; }
+        function handleAnswer(val) { scores[questions[currentIdx].c] += val; if (currentIdx < 20) { currentIdx++; renderQuestion(); } else { calculateResults(); } }
+        function getDASSLevel(score, type) { const s = score * 2; if (type === 'd') { if (s <= 9) return "Normal"; if (s <= 20) return "Sedang"; return "Tinggi"; } if (type === 'a') { if (s <= 7) return "Normal"; if (s <= 14) return "Sedang"; return "Tinggi"; } if (type === 's') { if (s <= 14) return "Normal"; if (s <= 25) return "Sedang"; return "Tinggi"; } }
+        function calculateResults() { document.getElementById('screening-quiz').classList.add('hidden'); document.getElementById('screening-result').classList.remove('hidden'); const dep = getDASSLevel(scores.d, 'd'); const anx = getDASSLevel(scores.a, 'a'); const str = getDASSLevel(scores.s, 's'); document.getElementById('status-d').innerText = dep; document.getElementById('status-a').innerText = anx; document.getElementById('status-s').innerText = str; let rec = "Harmoni jiwa Anda dalam keadaan baik. Pertahankan ketenangan ini untuk produktivitas riset Anda."; if (dep !== 'Normal' || anx !== 'Normal' || str !== 'Normal') { rec = "Anda menunjukkan ketegangan. Coba 'Focus Soundscapes' kami dan sesi mentoring yang tenang."; } document.getElementById('recommendation-text').innerText = rec; }
+
+        // Store Logic
+        let cart = [];
+        function addToCart(name, price) { if (cart.find(i => i.name === name)) return; cart.push({ name, price }); updateCart(); openCart(); }
+        function updateCart() { const list = document.getElementById('cart-items'); const totalEl = document.getElementById('cart-total'); const countEl = document.getElementById('cart-count'); const footer = document.getElementById('cart-footer'); list.innerHTML = ''; let total = 0; cart.forEach(item => { total += item.price; list.innerHTML += `<div class="flex justify-between items-center p-6 bg-slate-50 rounded-3xl border"><div><div class="font-bold text-sm text-navy">${item.name}</div><div class="text-gold font-bold">Rp ${item.price.toLocaleString()}</div></div><button onclick="removeFromCart('${item.name}')" class="text-slate-300 hover:text-red-500"><i data-lucide="trash-2" size="18"></i></button></div>`; }); totalEl.innerText = `Rp ${total.toLocaleString()}`; countEl.innerText = cart.length; if (cart.length > 0) { countEl.classList.remove('hidden'); footer.classList.remove('hidden'); } else { countEl.classList.add('hidden'); footer.classList.add('hidden'); list.innerHTML = '<p class="text-center text-slate-300 py-10">Kosong</p>'; } lucide.createIcons(); }
+        function removeFromCart(name) { cart = cart.filter(i => i.name !== name); updateCart(); }
+        function openCart() { document.getElementById('cart-sidebar').classList.remove('hidden'); }
+        function closeCart() { document.getElementById('cart-sidebar').classList.add('hidden'); }
+        function goToPayment() { document.getElementById('payment-total').innerText = document.getElementById('cart-total').innerText; document.getElementById('payment-modal').classList.remove('hidden'); }
+        function closePayment() { document.getElementById('payment-modal').classList.add('hidden'); }
+        function confirmPaid() { document.getElementById('payment-modal').classList.add('hidden'); document.getElementById('success-modal').classList.remove('hidden'); }
+        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('open'); }
+        function openWA(msg) { window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank'); }
+
+        window.addEventListener('scroll', () => { const nav = document.getElementById('navbar'); if (window.scrollY > 20) nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-md'); else nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-md'); });
+    </script>
+</body>
+</html>
