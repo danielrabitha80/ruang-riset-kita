@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ruang Riset Kita | Harmoni Data, Musik & Jiwa</title>
+    <title>Ruang Riset Kita | Eksosistem Riset & Wellness Profesional</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,301 +12,401 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <style>
+        :root {
+            --navy: #0a192f;
+            --gold: #d4af37;
+            --normal: #22c55e;
+            --ringan: #eab308;
+            --sedang: #f97316;
+            --parah: #ef4444;
+        }
         html { scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        body { font-family: 'Inter', sans-serif; background-color: #ffffff; color: #1e293b; overflow-x: hidden; }
         .font-serif { font-family: 'Playfair Display', serif; }
-        .bg-navy { background-color: #0a192f; }
-        .text-gold { color: #d4af37; }
-        .border-gold { border-color: #d4af37; }
-        .bg-gold { background-color: #d4af37; }
         
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.5s ease-out; }
+        .bg-navy { background-color: var(--navy); }
+        .text-gold { color: var(--gold); }
+        .bg-gold { background-color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Smooth Tab Transition */
+        .tab-content { display: none; opacity: 0; transform: translateY(15px); transition: all 0.5s ease; }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
 
-        .music-wave { display: flex; align-items: flex-end; gap: 2px; height: 15px; }
-        .music-wave span { width: 2px; background: #d4af37; animation: wave 1s ease-in-out infinite; }
-        @keyframes wave { 0%, 100% { height: 5px; } 50% { height: 15px; } }
+        /* Navbar Glassmorphism */
+        .glass-nav { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,0,0,0.05); }
         
-        .progress-bar { transition: width 0.3s ease-in-out; }
+        /* Music Wave Animation */
+        .wave-container { display: flex; align-items: flex-end; gap: 3px; height: 16px; }
+        .wave-bar { width: 2.5px; background: var(--gold); border-radius: 2px; animation: wave-anim 1s ease-in-out infinite; }
+        @keyframes wave-anim { 0%, 100% { height: 4px; } 50% { height: 16px; } }
+
+        /* DASS-21 Result Styling */
+        .status-badge { padding: 4px 12px; border-radius: 99px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; }
+        .bg-status-Normal { background-color: #f0fdf4; color: var(--normal); border: 1px solid var(--normal); }
+        .bg-status-Ringan { background-color: #fefce8; color: var(--ringan); border: 1px solid var(--ringan); }
+        .bg-status-Sedang { background-color: #fff7ed; color: var(--sedang); border: 1px solid var(--sedang); }
+        .bg-status-Parah, .bg-status-Sangat-Parah { background-color: #fef2f2; color: var(--parah); border: 1px solid var(--parah); }
+
+        .progress-bar-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* Mobile adjustment */
-        @media (max-width: 768px) {
-            .hero-title { font-size: 2.5rem; line-height: 1.2; }
-        }
+        .btn-hover-effect { transition: all 0.3s ease; }
+        .btn-hover-effect:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(10, 25, 47, 0.2); }
     </style>
 </head>
-<body class="text-slate-800">
+<body>
 
-    <!-- Navigation -->
-    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6 px-6">
+    <!-- Navigation Bar -->
+    <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6 px-6 lg:px-16">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center gap-3 cursor-pointer" onclick="switchTab('home')">
-                <div class="w-10 h-10 bg-navy rounded-xl flex items-center justify-center shadow-lg border border-gold/20">
-                    <span class="text-gold font-serif font-bold text-xl">R</span>
+            <!-- Brand -->
+            <div class="flex items-center gap-4 cursor-pointer group" onclick="switchTab('home')">
+                <div class="w-12 h-12 bg-navy rounded-2xl flex items-center justify-center shadow-xl border border-gold/20 group-hover:border-gold transition-all">
+                    <span class="text-gold font-serif font-bold text-2xl">R</span>
                 </div>
-                <div class="hidden sm:block leading-tight">
-                    <span class="font-serif font-bold text-lg text-navy">RuangRisetKita<span class="text-gold">.id</span></span>
-                    <div class="music-wave mt-1"><span></span><span style="animation-delay:0.2s"></span><span style="animation-delay:0.4s"></span></div>
+                <div class="leading-tight">
+                    <span class="font-serif font-bold text-xl tracking-tight text-navy">RuangRisetKita<span class="text-gold">.id</span></span>
+                    <div class="wave-container mt-1">
+                        <div class="wave-bar" style="animation-delay: 0.1s"></div>
+                        <div class="wave-bar" style="animation-delay: 0.3s"></div>
+                        <div class="wave-bar" style="animation-delay: 0.5s"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="hidden lg:flex items-center gap-8">
-                <button onclick="switchTab('home')" class="nav-link text-[10px] font-bold uppercase tracking-widest text-navy border-b-2 border-gold">Beranda</button>
-                <button onclick="switchTab('philosophy')" class="nav-link text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-navy">Filosofi</button>
-                <button onclick="switchTab('services')" class="nav-link text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-navy">Riset</button>
-                <button onclick="switchTab('screening')" class="nav-link text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-navy">Screening</button>
-                <button onclick="switchTab('shop')" class="nav-link text-[10px] font-bold uppercase tracking-widest text-slate-400 hover:text-navy">Toko</button>
-                <button onclick="toggleCart()" class="relative p-2 text-navy hover:scale-110 transition-transform">
-                    <i data-lucide="shopping-cart"></i>
-                    <span id="cart-count" class="absolute -top-1 -right-1 bg-gold text-white text-[9px] w-5 h-5 rounded-full flex items-center justify-center border-2 border-white hidden">0</span>
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-10">
+                <button onclick="switchTab('home')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-navy border-b-2 border-gold pb-1">Beranda</button>
+                <button onclick="switchTab('philosophy')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Filosofi</button>
+                <button onclick="switchTab('services')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Layanan</button>
+                <button onclick="switchTab('screening')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Screening</button>
+                <button onclick="switchTab('shop')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Store</button>
+                
+                <div class="h-6 w-[1px] bg-slate-200 mx-2"></div>
+                
+                <button onclick="switchTab('member')" class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-navy hover:text-gold transition-colors">
+                    <i data-lucide="user-circle" size="18"></i> Area Anggota
                 </button>
-                <button onclick="handleWa('Halo RRK, saya mau daftar Akun Gratis.')" class="bg-navy text-white px-6 py-2.5 rounded-full text-[10px] font-bold uppercase shadow-lg hover:bg-slate-800 transition-all">Daftar Gratis</button>
+                
+                <button onclick="toggleCart()" class="relative text-navy hover:scale-110 transition-transform">
+                    <i data-lucide="shopping-bag" size="20"></i>
+                    <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-white text-[8px] w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white hidden font-bold">0</span>
+                </button>
             </div>
-            
-            <button class="lg:hidden text-navy" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+
+            <!-- Mobile Burger -->
+            <button class="lg:hidden text-navy" onclick="toggleMenu()"><i data-lucide="menu" size="28"></i></button>
         </div>
     </nav>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-navy p-10 hidden flex-col gap-8 transition-all">
-        <div class="flex justify-end"><button onclick="toggleMenu()" class="text-white"><i data-lucide="x" size="32"></i></button></div>
-        <button onclick="switchTab('home'); toggleMenu()" class="text-2xl font-serif font-bold text-white text-left uppercase">Beranda</button>
-        <button onclick="switchTab('philosophy'); toggleMenu()" class="text-2xl font-serif font-bold text-white text-left uppercase">Filosofi</button>
-        <button onclick="switchTab('services'); toggleMenu()" class="text-2xl font-serif font-bold text-white text-left uppercase">Riset</button>
-        <button onclick="switchTab('screening'); toggleMenu()" class="text-2xl font-serif font-bold text-white text-left uppercase text-gold">Screening DASS</button>
-        <button onclick="switchTab('shop'); toggleMenu()" class="text-2xl font-serif font-bold text-white text-left uppercase">Toko</button>
-        <button onclick="handleWa('Halo RRK, saya mau daftar Akun Gratis.'); toggleMenu()" class="mt-auto bg-gold text-navy py-4 rounded-2xl font-bold uppercase tracking-widest">Daftar Akun Gratis</button>
+    <!-- Mobile Navigation Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-navy p-12 hidden flex-col gap-8">
+        <div class="flex justify-end"><button onclick="toggleMenu()" class="text-white"><i data-lucide="x" size="36"></i></button></div>
+        <button onclick="switchTab('home'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">BERANDA</button>
+        <button onclick="switchTab('philosophy'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">FILOSOFI</button>
+        <button onclick="switchTab('services'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">LAYANAN</button>
+        <button onclick="switchTab('screening'); toggleMenu()" class="text-3xl font-serif font-bold text-gold text-left uppercase tracking-widest">SCREENING DASS</button>
+        <button onclick="switchTab('member'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">MEMBER AREA</button>
+        <button onclick="handleWa('Halo RRK, saya ingin daftar member gratis.')" class="mt-auto bg-gold text-navy py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-center shadow-2xl">Daftar Akun Gratis</button>
     </div>
 
-    <!-- Main Content -->
-    <main class="pt-32 pb-20 px-6">
+    <!-- Main Content Container -->
+    <main class="pt-44 pb-32 px-6 lg:px-20 max-w-7xl mx-auto">
         
-        <!-- HOME SECTION -->
-        <section id="home" class="tab-content active max-w-4xl mx-auto text-center py-12">
-            <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-yellow-100 text-navy text-[10px] font-bold rounded-full mb-8 uppercase tracking-widest border border-yellow-200">
-                <i data-lucide="music" size="12" class="animate-pulse"></i> Dimana Logika Bertemu Harmoni
+        <!-- SECTION: HOME -->
+        <section id="home" class="tab-content active text-center max-w-4xl mx-auto">
+            <div class="inline-flex items-center gap-3 px-6 py-2 bg-slate-50 text-navy text-[10px] font-bold rounded-full mb-10 uppercase tracking-[0.2em] border border-slate-200">
+                <span class="flex h-2 w-2 rounded-full bg-gold animate-pulse"></span>
+                Harmony of Logic & Soul
             </div>
-            <h1 class="hero-title text-4xl md:text-7xl font-serif font-bold mb-8 leading-tight text-navy">Transformasi Ide Jadi <span class="text-gold italic">Mahakarya</span>.</h1>
-            <p class="text-sm md:text-xl text-slate-500 mb-12 leading-relaxed max-w-2xl mx-auto">Kami memadukan ketajaman riset ilmiah dengan kekuatan musik untuk membantu Anda mencapai hasil maksimal dengan jiwa yang tetap tenang.</p>
-            <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <button onclick="switchTab('screening')" class="bg-navy text-white px-10 py-5 rounded-full font-bold shadow-2xl hover:scale-105 transition-all flex items-center justify-center gap-2">
-                   <i data-lucide="brain"></i> Mulai Screening Jiwa
+            <h1 class="font-serif text-5xl md:text-8xl font-bold mb-10 text-navy leading-[1.1]">Riset Akurat,<br><span class="text-gold italic">Mental Sehat</span>.</h1>
+            <p class="text-lg md:text-2xl text-slate-500 mb-14 max-w-2xl mx-auto leading-relaxed">Ekosistem pendampingan penelitian pertama yang mengintegrasikan data akurat dengan elemen kesejahteraan mental.</p>
+            <div class="flex flex-col sm:flex-row gap-6 justify-center">
+                <button onclick="switchTab('screening')" class="btn-hover-effect bg-navy text-white px-12 py-6 rounded-full font-bold shadow-2xl flex items-center justify-center gap-3">
+                    Mulai Evaluasi Jiwa <i data-lucide="brain" size="20"></i>
                 </button>
-                <button onclick="switchTab('services')" class="border-2 border-gold text-gold px-10 py-5 rounded-full font-bold hover:bg-gold hover:text-white transition-all">7 Layanan Riset</button>
+                <button onclick="switchTab('services')" class="btn-hover-effect border-2 border-gold text-gold px-12 py-6 rounded-full font-bold hover:bg-gold hover:text-white transition-all">
+                    Layanan Profesional
+                </button>
             </div>
         </section>
 
-        <!-- PHILOSOPHY SECTION -->
-        <section id="philosophy" class="tab-content max-w-5xl mx-auto py-10">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 text-navy">Harmoni Logika & Jiwa</h2>
-                <p class="text-slate-500 italic">"Penelitian yang baik tidak hanya lahir dari angka, tapi dari pikiran yang jernih."</p>
-            </div>
-            <div class="grid md:grid-cols-2 gap-16 items-center">
-                <div class="space-y-6 text-slate-600 leading-relaxed text-lg text-justify">
-                    <p>Di **Ruang Riset Kita**, kami memahami bahwa dunia riset seringkali penuh tekanan. Mahasiswa dan peneliti sering terjebak dalam kecemasan data yang melelahkan secara mental.</p>
-                    <div class="bg-white p-8 rounded-[3rem] shadow-xl border-l-8 border-gold font-medium text-navy">
-                        Filosofi kami: **"Music for the Mind, Data for the Truth"**. Kami mengintegrasikan musik meditatif dengan metodologi riset yang tervalidasi secara saintifik.
+        <!-- SECTION: PHILOSOPHY -->
+        <section id="philosophy" class="tab-content">
+            <div class="grid lg:grid-cols-2 gap-20 items-center">
+                <div class="space-y-8">
+                    <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy">Filosofi Kami</h2>
+                    <div class="space-y-6 text-slate-600 text-lg leading-relaxed text-justify">
+                        <p>Penelitian seringkali dianggap sebagai beban kaku yang melelahkan secara mental. Di Ruang Riset Kita, kami memutus siklus tersebut dengan pendekatan harmonisasi.</p>
+                        <div class="bg-slate-50 p-10 rounded-[3rem] border-l-[12px] border-gold shadow-sm">
+                            <h4 class="text-navy font-serif font-bold text-2xl mb-4 italic">"Music for the Mind, Data for the Truth"</h4>
+                            <p class="text-base text-slate-500 font-medium">Kami percaya bahwa inovasi cemerlang hanya lahir dari pikiran yang seimbang dan tenang.</p>
+                        </div>
+                        <p>Visi kami berkeinginan untuk mendemokratisasi riset. Memastikan akademisi,praktisi UMKM , dan masyarakat memiliki akses data akurat tanpa harus mengorbankan kesejahteraan batin mereka.</p>
                     </div>
-                    <p>Misi kami adalah **mendemokratisasi riset**, memastikan setiap orang memiliki akses terhadap data akurat tanpa harus mengorbankan kesejahteraan jiwa mereka.</p>
                 </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="bg-navy p-8 rounded-[2.5rem] text-white flex flex-col items-center text-center shadow-xl">
-                        <i data-lucide="brain" class="text-gold mb-4" size="32"></i><span class="font-bold text-sm">Logika</span>
+                <div class="grid grid-cols-2 gap-6">
+                    <div class="bg-navy p-10 rounded-[3.5rem] text-white flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
+                        <i data-lucide="brain" class="text-gold mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Logika</span>
                     </div>
-                    <div class="bg-gold p-8 rounded-[2.5rem] text-navy flex flex-col items-center text-center shadow-xl">
-                        <i data-lucide="heart" class="mb-4" size="32"></i><span class="font-bold text-sm">Empati</span>
+                    <div class="bg-gold p-10 rounded-[3.5rem] text-navy flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
+                        <i data-lucide="heart" class="mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Empati</span>
                     </div>
-                    <div class="bg-white border p-8 rounded-[2.5rem] text-navy flex flex-col items-center text-center shadow-xl">
-                        <i data-lucide="music" class="text-gold mb-4" size="32"></i><span class="font-bold text-sm">Nada</span>
+                    <div class="bg-slate-50 border p-10 rounded-[3.5rem] text-navy flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
+                        <i data-lucide="music" class="text-gold mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Nada</span>
                     </div>
-                    <div class="bg-navy p-8 rounded-[2.5rem] text-white flex flex-col items-center text-center shadow-xl">
-                        <i data-lucide="database" class="text-gold mb-4" size="32"></i><span class="font-bold text-sm">Data</span>
+                    <div class="bg-navy p-10 rounded-[3.5rem] text-white flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
+                        <i data-lucide="database" class="text-gold mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Data</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SERVICES SECTION -->
-        <section id="services" class="tab-content max-w-7xl mx-auto py-10">
-            <h2 class="text-3xl md:text-5xl font-serif font-bold mb-4 text-navy text-center">Layanan Riset Profesional</h2>
-            <p class="text-slate-500 mb-16 text-center">Mitra pendampingan penelitian Anda dari hulu hingga hilir.</p>
+        <!-- SECTION: SERVICES -->
+        <section id="services" class="tab-content">
+            <div class="text-center mb-20">
+                <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy mb-4">Layanan Riset</h2>
+                <p class="text-slate-500 text-lg">Solusi pendampingan komprehensif untuk menyukseskan mahakarya Anda.</p>
+            </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-8 group-hover:bg-navy transition-all duration-300"><i data-lucide="layout" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Desain Riset Strategis</h3>
-                    <p class="text-slate-500 text-sm mb-8">Penyusunan kerangka berpikir dan metodologi kuat agar penelitian Anda memiliki fondasi saintifik yang kuat.</p>
-                    <button onclick="handleWa('Halo RRK, saya tertarik Desain Riset')" class="text-[10px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Detail Layanan <i data-lucide="chevron-right" size="14"></i></button>
+                <!-- Service Cards -->
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
+                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="layout" size="32"></i></div>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Desain Riset</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Penyusunan kerangka berpikir, penentuan variabel, dan metodologi saintifik yang kuat agar riset memiliki fondasi kokoh.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Desain Riset')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-8 group-hover:bg-navy transition-all duration-300"><i data-lucide="database" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Jasa Olah Data Pro</h3>
-                    <p class="text-slate-500 text-sm mb-8">Cleaning dan koding data menggunakan SPSS, R, Stata, atau AMOS untuk menghasilkan angka yang valid.</p>
-                    <button onclick="handleWa('Halo RRK, saya tertarik Olah Data')" class="text-[10px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Detail Layanan <i data-lucide="chevron-right" size="14"></i></button>
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
+                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="database" size="32"></i></div>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Olah Data Pro</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Cleaning, koding, dan pengolahan data profesional menggunakan SPSS, R, M. Plus, Stata, AMOS, atau SmartPLS.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Olah Data')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-8 group-hover:bg-navy transition-all duration-300"><i data-lucide="search" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Analisis & Interpretasi</h3>
-                    <p class="text-slate-500 text-sm mb-8">Menerjemahkan hasil statistik menjadi narasi temuan yang mendalam, bermakna, dan mudah dipahami.</p>
-                    <button onclick="handleWa('Halo RRK, saya tertarik Analisis Data')" class="text-[10px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Detail Layanan <i data-lucide="chevron-right" size="14"></i></button>
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
+                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="search" size="32"></i></div>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Analisis Data</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Interpretasi statistik mendalam untuk menemukan temuan kunci bagi publikasi jurnal atau skripsi.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Analisis Data')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-8 group-hover:bg-navy transition-all duration-300"><i data-lucide="edit-3" size="32"></i></div>
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
+                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="edit-3" size="32"></i></div>
                     <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Bantuan Penulisan</h3>
-                    <p class="text-slate-500 text-sm mb-8">Bimbingan penyusunan naskah jurnal internasional, skripsi, tesis, hingga disertasi dengan orisinalitas tinggi.</p>
-                    <button onclick="handleWa('Halo RRK, saya tertarik Bantuan Penulisan')" class="text-[10px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Detail Layanan <i data-lucide="chevron-right" size="14"></i></button>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Pendampingan penyusunan draf naskah jurnal internasional, skripsi, tesis, dan disertasi secara orisinal.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Bantuan Penulisan')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-8 group-hover:bg-navy transition-all duration-300"><i data-lucide="book-check" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Proofreading & Editing</h3>
-                    <p class="text-slate-500 text-sm mb-8">Memastikan naskah bebas typo, logis, dan sesuai dengan standar gaya selingkung akademik jurnal tujuan.</p>
-                    <button onclick="handleWa('Halo RRK, saya tertarik Proofreading')" class="text-[10px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Detail Layanan <i data-lucide="chevron-right" size="14"></i></button>
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
+                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="book-check" size="32"></i></div>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Editing & Proofing</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Pembersihan naskah dari kesalahan bahasa dan penyesuaian gaya selingkung standar akademik.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Proofreading')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
-                <div class="bg-white p-10 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-8 group-hover:bg-navy transition-all duration-300"><i data-lucide="users" size="32"></i></div>
+                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
+                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="users" size="32"></i></div>
                     <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Riset Lapangan</h3>
-                    <p class="text-slate-500 text-sm mb-8">Bantuan pengumpulan data primer melalui survei digital maupun observasi lapangan yang terukur.</p>
-                    <button onclick="handleWa('Halo RRK, saya tertarik Riset Lapangan')" class="text-[10px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Detail Layanan <i data-lucide="chevron-right" size="14"></i></button>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Pengumpulan data primer melalui pendekatan kuantitaif dan kualitatif yang terukur.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Riset Lapangan')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- SCREENING SECTION (DASS-21) -->
-        <section id="screening" class="tab-content max-w-4xl mx-auto py-10">
-            <div id="dass-intro" class="bg-white p-10 md:p-20 rounded-[3rem] shadow-2xl text-center border border-slate-100">
-                <div class="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-8 text-gold shadow-inner"><i data-lucide="activity" size="40"></i></div>
-                <h2 class="text-3xl md:text-5xl font-serif font-bold mb-6 text-navy">Digital Screening DASS-21</h2>
-                <p class="text-slate-500 mb-10 text-lg leading-relaxed">Ukur tingkat depresi, kecemasan, dan stres Anda secara ilmiah. Instrumen ini tervalidasi dan sering digunakan oleh pakar kesehatan mental dunia.</p>
-                <button onclick="startDass()" class="bg-navy text-white px-12 py-5 rounded-full font-bold shadow-xl hover:scale-105 transition-all">Mulai Tes (2 Menit)</button>
-                <p class="mt-8 text-[10px] text-slate-400 uppercase tracking-widest font-bold tracking-[0.2em]">Standardized by Lovibond & Lovibond (1995)</p>
+        <!-- SECTION: SCREENING DASS-21 -->
+        <section id="screening" class="tab-content max-w-4xl mx-auto">
+            <div id="dass-intro" class="bg-white p-12 md:p-24 rounded-[4rem] shadow-2xl text-center border border-slate-50">
+                <div class="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-10 text-gold shadow-inner"><i data-lucide="activity" size="40"></i></div>
+                <h2 class="font-serif text-4xl md:text-6xl font-bold mb-8 text-navy leading-tight">Evaluasi Jiwa DASS-21</h2>
+                <p class="text-slate-500 text-xl mb-12 leading-relaxed">Ukur secara objektif tingkat depresi, kecemasan, dan stres Anda sebagai peneliti menggunakan instrumen akademik standar dunia.</p>
+                <button onclick="startDass()" class="btn-hover-effect bg-navy text-white px-14 py-6 rounded-full font-bold shadow-2xl text-lg tracking-widest uppercase">Mulai Test Gratis</button>
             </div>
 
-            <div id="dass-quiz" class="bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl hidden border border-slate-100">
-                <div class="mb-12">
-                    <div class="flex justify-between items-end mb-4">
-                        <span class="text-[10px] font-bold uppercase tracking-widest text-gold">Progress Evaluasi Jiwa</span>
-                        <span id="dass-progress-text" class="text-xs font-bold text-slate-400 tracking-widest">1 / 21</span>
+            <!-- Quiz Screen -->
+            <div id="dass-quiz" class="bg-white p-10 md:p-20 rounded-[4rem] shadow-2xl hidden border border-slate-50">
+                <div class="mb-14 text-center">
+                    <div class="flex justify-between items-end mb-4 font-bold uppercase tracking-[0.2em] text-[10px]">
+                        <span class="text-gold tracking-[0.3em]">Screening Progress</span>
+                        <span id="dass-progress-text" class="text-slate-400">1 / 21</span>
                     </div>
-                    <div class="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
-                        <div id="dass-progress-bar" class="bg-gold h-full progress-bar" style="width: 5%"></div>
+                    <div class="w-full bg-slate-100 h-3 rounded-full overflow-hidden shadow-inner">
+                        <div id="dass-progress-bar" class="bg-navy h-full progress-bar-fill" style="width: 5%"></div>
                     </div>
                 </div>
-                <h3 id="dass-question" class="text-xl md:text-3xl font-serif font-bold text-navy mb-12 leading-tight min-h-[4rem]">...</h3>
-                <div class="grid grid-cols-1 gap-4">
-                    <button onclick="answerDass(0)" class="w-full text-left p-6 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-medium">0 - Tidak pernah sama sekali</button>
-                    <button onclick="answerDass(1)" class="w-full text-left p-6 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-medium">1 - Kadang-kadang / Jarang</button>
-                    <button onclick="answerDass(2)" class="w-full text-left p-6 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-medium">2 - Sering / Cukup banyak waktu</button>
-                    <button onclick="answerDass(3)" class="w-full text-left p-6 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-medium">3 - Sangat sering / Sebagian besar waktu</button>
+                <h3 id="dass-question" class="font-serif text-2xl md:text-4xl font-bold text-navy mb-14 leading-tight min-h-[6rem] text-center">...</h3>
+                <div class="grid grid-cols-1 gap-5">
+                    <button onclick="answerDass(0)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">0 - Tidak pernah sama sekali</button>
+                    <button onclick="answerDass(1)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">1 - Kadang-kadang / Jarang</button>
+                    <button onclick="answerDass(2)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">2 - Sering / Cukup banyak waktu</button>
+                    <button onclick="answerDass(3)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">3 - Sangat sering / Sebagian besar waktu</button>
                 </div>
             </div>
 
-            <div id="dass-result" class="bg-white p-8 md:p-16 rounded-[3rem] shadow-2xl hidden border border-slate-100 text-center">
-                <h3 class="text-3xl font-serif font-bold mb-2 text-navy">Laporan Harmoni Jiwa</h3>
-                <p class="text-slate-400 mb-12 text-sm italic">Status Anda berdasarkan interpretasi skor DASS-21</p>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                    <div class="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 shadow-inner">
-                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Depresi</div>
-                        <div id="res-d" class="text-2xl font-bold text-navy">Normal</div>
+            <!-- Result Screen (Cerdas & Dinamis) -->
+            <div id="dass-result" class="bg-white p-10 md:p-20 rounded-[4rem] shadow-2xl hidden border border-slate-50 text-center">
+                <h3 class="font-serif text-4xl font-bold mb-4 text-navy leading-tight">Hasil Analisis</h3>
+                <p class="text-slate-400 mb-16 text-lg italic tracking-wide">Interpretasi skor DASS-21 Anda</p>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <!-- Depression Card -->
+                    <div id="card-d" class="p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700">
+                        <div class="text-[11px] uppercase font-bold text-slate-400 mb-4 tracking-[0.2em]">Depresi</div>
+                        <div id="res-d" class="text-3xl font-bold">...</div>
+                        <div id="badge-d" class="status-badge mt-4 inline-block">Normal</div>
                     </div>
-                    <div class="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 shadow-inner">
-                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Kecemasan</div>
-                        <div id="res-a" class="text-2xl font-bold text-navy">Normal</div>
+                    <!-- Anxiety Card -->
+                    <div id="card-a" class="p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700">
+                        <div class="text-[11px] uppercase font-bold text-slate-400 mb-4 tracking-[0.2em]">Kecemasan</div>
+                        <div id="res-a" class="text-3xl font-bold">...</div>
+                        <div id="badge-a" class="status-badge mt-4 inline-block">Normal</div>
                     </div>
-                    <div class="p-8 bg-slate-50 rounded-[2.5rem] border border-slate-100 shadow-inner">
-                        <div class="text-[10px] uppercase font-bold text-slate-400 mb-2 tracking-widest">Stres</div>
-                        <div id="res-s" class="text-2xl font-bold text-navy">Normal</div>
+                    <!-- Stress Card -->
+                    <div id="card-s" class="p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700">
+                        <div class="text-[11px] uppercase font-bold text-slate-400 mb-4 tracking-[0.2em]">Stres</div>
+                        <div id="res-s" class="text-3xl font-bold">...</div>
+                        <div id="badge-s" class="status-badge mt-4 inline-block">Normal</div>
                     </div>
                 </div>
-                <div class="bg-navy text-white p-10 rounded-[3rem] mb-12 text-left shadow-2xl">
-                    <h4 class="text-gold font-bold mb-4 uppercase tracking-widest text-xs">Saran Harmonisasi</h4>
-                    <p id="res-rec" class="text-lg leading-relaxed">...</p>
+
+                <div id="recommendation-box" class="p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border transition-all duration-700">
+                    <h4 class="font-bold mb-6 uppercase tracking-[0.3em] text-[10px] flex items-center gap-3">
+                        <i data-lucide="lightbulb" size="16"></i> Insight Strategis
+                    </h4>
+                    <p id="res-rec" class="text-xl leading-relaxed font-medium text-navy">...</p>
                 </div>
-                <div class="flex flex-col md:flex-row gap-4 justify-center">
-                    <button onclick="handleWa('Halo RRK, saya baru saja melakukan screening DASS-21 dan ingin konsultasi hasil.')" class="bg-gold text-navy px-12 py-5 rounded-full font-bold shadow-lg hover:scale-105 transition-all">Konsultasi via WhatsApp</button>
-                    <button onclick="location.reload()" class="text-slate-400 text-xs font-bold uppercase tracking-widest hover:text-navy">Ulangi Tes</button>
+
+                <div class="flex flex-col md:flex-row gap-6 justify-center">
+                    <button onclick="handleWa('Halo RRK, ini hasil screening DASS-21 saya. Mohon bantuan bimbingannya.')" class="btn-hover-effect bg-navy text-white px-14 py-6 rounded-full font-bold shadow-xl flex items-center justify-center gap-3">
+                        Konsultasi via WhatsApp <i data-lucide="message-circle" size="20"></i>
+                    </button>
+                    <button onclick="location.reload()" class="text-slate-400 text-xs font-bold uppercase tracking-[0.3em] hover:text-navy py-6 transition-colors">Ulangi Tes</button>
                 </div>
             </div>
         </section>
 
-        <!-- SHOP SECTION -->
-        <section id="shop" class="tab-content max-w-7xl mx-auto py-10 text-center">
-            <h2 class="text-3xl md:text-5xl font-serif font-bold mb-4 text-navy text-center">Toko Digital RRK</h2>
-            <p class="text-slate-500 mb-16 text-center">Aset harmoni dan instrumen riset siap unduh.</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-left">
-                <!-- Produk -->
-                <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col">
-                    <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-6"><i data-lucide="music-2"></i></div>
-                    <span class="text-[9px] font-bold text-slate-300 uppercase">App</span>
-                    <h3 class="text-xl font-serif font-bold my-3 text-navy h-12">Aplikasi Shalawat</h3>
-                    <p class="text-slate-500 text-xs mb-8 flex-grow">Koleksi shalawat penenang jiwa untuk kedamaian batin harian Anda.</p>
-                    <p class="text-2xl font-bold text-navy mb-8">Rp 100.000</p>
-                    <button onclick="addToCart('Aplikasi Shalawat', 100000)" class="w-full py-4 rounded-2xl bg-navy text-white font-bold hover:bg-gold transition-all">Pilih Produk <i data-lucide="plus" size="14" class="inline ml-1"></i></button>
+        <!-- SECTION: STORE -->
+        <section id="shop" class="tab-content">
+            <div class="text-center mb-20">
+                <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy mb-4 text-center">Digital Store</h2>
+                <p class="text-slate-500 text-lg text-center mx-auto max-w-2xl">Instrumen premium untuk mendukung kesehatan mental & riset Anda.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white p-10 rounded-[4rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col group">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-8 group-hover:bg-navy transition-all duration-500"><i data-lucide="music-2" size="32"></i></div>
+                    <span class="text-[10px] font-bold text-slate-300 uppercase mb-4">Mobile App</span>
+                    <h3 class="text-xl font-serif font-bold mb-4 text-navy min-h-[3rem]">Aplikasi Shalawat</h3>
+                    <p class="text-slate-500 text-xs mb-8 flex-grow leading-relaxed text-justify">Koleksi nada meditatif penenang jiwa untuk menjaga kedamaian batin peneliti.</p>
+                    <p class="text-2xl font-bold text-navy mb-8 tracking-tighter text-center">Rp 100.000</p>
+                    <button onclick="addToCart('Aplikasi Shalawat', 100000)" class="btn-hover-effect w-full py-5 rounded-3xl bg-navy text-white font-bold hover:bg-gold transition-all text-[10px] uppercase tracking-widest">Tambah</button>
                 </div>
-                <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col">
-                    <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-6"><i data-lucide="sparkles"></i></div>
-                    <span class="text-[9px] font-bold text-slate-300 uppercase">App</span>
-                    <h3 class="text-xl font-serif font-bold my-3 text-navy h-12">Mirror of Me</h3>
-                    <p class="text-slate-500 text-xs mb-8 flex-grow">Aplikasi refleksi diri interaktif untuk menjaga kesehatan mental setiap hari.</p>
-                    <p class="text-2xl font-bold text-navy mb-8">Rp 150.000</p>
-                    <button onclick="addToCart('Mirror of Me', 150000)" class="w-full py-4 rounded-2xl bg-navy text-white font-bold hover:bg-gold transition-all">Pilih Produk <i data-lucide="plus" size="14" class="inline ml-1"></i></button>
-                </div>
-                <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col">
-                    <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-6"><i data-lucide="book-open"></i></div>
-                    <span class="text-[9px] font-bold text-slate-300 uppercase">PDF</span>
-                    <h3 class="text-xl font-serif font-bold my-3 text-navy h-12">E-book Riset Pro</h3>
-                    <p class="text-slate-500 text-xs mb-8 flex-grow">Panduan praktis melakukan riset mandiri tanpa rasa stres.</p>
-                    <p class="text-2xl font-bold text-navy mb-8">Rp 75.000</p>
-                    <button onclick="addToCart('E-book Riset', 75000)" class="w-full py-4 rounded-2xl bg-navy text-white font-bold hover:bg-gold transition-all">Pilih Produk <i data-lucide="plus" size="14" class="inline ml-1"></i></button>
-                </div>
-                <div class="bg-white p-8 rounded-[3rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col">
-                    <div class="w-14 h-14 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-6"><i data-lucide="brain"></i></div>
-                    <span class="text-[9px] font-bold text-slate-300 uppercase">Tool</span>
-                    <h3 class="text-xl font-serif font-bold my-3 text-navy h-12">Mental Health Kit</h3>
-                    <p class="text-slate-500 text-xs mb-8 flex-grow">Paket instrumen screening digital lengkap untuk kebutuhan riset pribadi.</p>
-                    <p class="text-2xl font-bold text-navy mb-8">Rp 125.000</p>
-                    <button onclick="addToCart('MH Kit DASS', 125000)" class="w-full py-4 rounded-2xl bg-navy text-white font-bold hover:bg-gold transition-all">Pilih Produk <i data-lucide="plus" size="14" class="inline ml-1"></i></button>
+                <div class="bg-white p-10 rounded-[4rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col group">
+                    <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-8 group-hover:bg-navy transition-all duration-500"><i data-lucide="sparkles" size="32"></i></div>
+                    <span class="text-[10px] font-bold text-slate-300 uppercase mb-4">Mobile App</span>
+                    <h3 class="text-xl font-serif font-bold mb-4 text-navy min-h-[3rem]">Mirror of Me</h3>
+                    <p class="text-slate-500 text-xs mb-8 flex-grow leading-relaxed text-justify">Aplikasi refleksi diri harian interaktif berbasis psikologi klinis untuk peneliti.</p>
+                    <p class="text-2xl font-bold text-navy mb-8 tracking-tighter text-center">Rp 150.000</p>
+                    <button onclick="addToCart('Mirror of Me', 150000)" class="btn-hover-effect w-full py-5 rounded-3xl bg-navy text-white font-bold hover:bg-gold transition-all text-[10px] uppercase tracking-widest">Tambah</button>
                 </div>
             </div>
         </section>
+
+        <!-- SECTION: MEMBER AREA (Mockup Dashboard) -->
+        <section id="member" class="tab-content max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b pb-8">
+                <div>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy mb-2 text-center md:text-left">Member Dashboard</h2>
+                    <p class="text-slate-400 font-medium italic text-center md:text-left">Selamat datang di pusat kendali mahakarya Anda.</p>
+                </div>
+                <div class="mt-6 md:mt-0 text-center"><span class="status-badge bg-green-100 text-green-700 px-6 py-3 rounded-full font-bold shadow-sm">Premium Access</span></div>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-10">
+                <!-- Widget 1: Riset -->
+                <div class="lg:col-span-2 bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50">
+                    <div class="flex justify-between items-center mb-12">
+                        <h4 class="font-serif text-3xl font-bold text-navy flex items-center gap-4"><i data-lucide="layout"></i> Riset Aktif</h4>
+                        <span class="text-[10px] font-bold uppercase text-gold tracking-widest">1 Proyek Berjalan</span>
+                    </div>
+                    <div class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 shadow-inner">
+                        <div class="flex justify-between mb-6 text-sm font-bold">
+                            <span class="text-navy italic">"Riset Perilaku Konsumen UMKM Jakarta"</span>
+                            <span class="text-navy">85%</span>
+                        </div>
+                        <div class="w-full bg-white h-3 rounded-full overflow-hidden border">
+                            <div class="bg-navy h-full" style="width: 85%"></div>
+                        </div>
+                        <div class="mt-10 flex flex-wrap gap-4">
+                            <button onclick="handleWa('Halo mentor RRK, saya mau tanya progres riset.')" class="bg-white border px-8 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-navy hover:text-white transition-all shadow-sm">Chat Mentor</button>
+                            <button class="bg-white border px-8 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest opacity-30 cursor-not-allowed shadow-sm">Data File</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Widget 2: Wellness Log -->
+                <div class="bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50">
+                    <h4 class="font-serif text-3xl font-bold text-navy mb-10 flex items-center gap-4"><i data-lucide="activity"></i> Wellness Logs</h4>
+                    <div class="space-y-8">
+                        <div class="flex justify-between items-center pb-4 border-b">
+                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Update Terakhir</span>
+                            <span class="text-xs font-bold text-navy">Februari 2026</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="font-medium text-slate-400">Depresi</span>
+                            <span class="font-bold text-green-500 uppercase tracking-widest">NORMAL</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="font-medium text-slate-400">Cemas</span>
+                            <span class="font-bold text-yellow-500 uppercase tracking-widest">RINGAN</span>
+                        </div>
+                        <button onclick="switchTab('screening')" class="w-full mt-8 bg-slate-50 text-navy py-5 rounded-3xl font-bold text-[10px] uppercase tracking-[0.2em] border border-slate-100 hover:bg-navy hover:text-white transition-all shadow-md">Update Kondisi</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
     </main>
 
-    <!-- Cart Sidebar -->
+    <!-- Shopping Cart Sidebar Overlay -->
     <div id="cart-sidebar" class="fixed inset-0 z-[300] hidden">
-        <div class="absolute inset-0 bg-black/50" onclick="toggleCart()"></div>
-        <div class="absolute right-0 top-0 w-full md:max-w-md h-full bg-white shadow-2xl flex flex-col p-8">
-            <div class="flex justify-between items-center mb-8 border-b pb-4">
-                <h3 class="text-xl font-bold font-serif text-navy">Daftar Pilihan</h3>
-                <button onclick="toggleCart()"><i data-lucide="x"></i></button>
+        <div class="absolute inset-0 bg-navy/80 backdrop-blur-md" onclick="toggleCart()"></div>
+        <div class="absolute right-0 top-0 w-full md:max-w-md h-full bg-white shadow-2xl flex flex-col p-12 animate-in slide-in-from-right duration-500">
+            <div class="flex justify-between items-center mb-12 border-b pb-8">
+                <h3 class="font-serif text-4xl font-bold text-navy flex items-center gap-4"><i data-lucide="shopping-cart" class="text-gold"></i> Pilihan</h3>
+                <button onclick="toggleCart()"><i data-lucide="x" size="24"></i></button>
             </div>
-            <div id="cart-items" class="flex-grow overflow-y-auto space-y-4"></div>
-            <div id="cart-footer" class="border-t pt-8 hidden">
-                <div class="flex justify-between mb-8 font-bold text-xl text-navy"><span>Total</span><span id="cart-total">Rp 0</span></div>
-                <button onclick="handleWaCheckout()" class="w-full bg-navy text-white py-5 rounded-2xl font-bold shadow-lg">Lanjut Bayar di WhatsApp</button>
+            <div id="cart-items" class="flex-grow overflow-y-auto space-y-8 text-center">
+                <p id="empty-cart-msg" class="text-slate-400 py-20 italic font-serif">Belum ada item terpilih.</p>
+            </div>
+            <div id="cart-footer" class="border-t pt-10 hidden">
+                <div class="flex justify-between mb-10 items-center">
+                    <span class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Total Kontribusi</span>
+                    <span id="cart-total" class="font-bold text-4xl text-navy tracking-tighter">Rp 0</span>
+                </div>
+                <button onclick="handleWaCheckout()" class="btn-hover-effect w-full bg-navy text-white py-6 rounded-[2.5rem] font-bold shadow-2xl flex items-center justify-center gap-4 text-lg">
+                   Beli di WhatsApp <i data-lucide="message-circle" size="24"></i>
+                </button>
             </div>
         </div>
     </div>
 
-    <footer class="bg-navy text-white py-20 text-center">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="font-serif font-bold text-2xl mb-2 tracking-tight">RuangRisetKita<span class="text-gold">.id</span></div>
-            <p class="text-white/20 text-[10px] uppercase tracking-[0.4em] mb-10 italic">Mewujudkan Mahakarya Melalui Harmoni Data & Jiwa</p>
-            <div class="text-[9px] text-white/10 uppercase tracking-widest font-bold pt-10 border-t border-white/5">© 2026 Ruang Riset Kita • South Jakarta, Indonesia</div>
+    <!-- Floating UI -->
+    <button onclick="handleWa('Halo Ruang Riset Kita, saya butuh pendampingan riset.')" class="fixed bottom-10 right-10 w-20 h-20 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(37,211,102,0.3)] z-50 transition-all hover:scale-110 active:scale-95 animate-bounce">
+        <i data-lucide="message-circle" size="36"></i>
+    </button>
+
+    <footer class="bg-navy text-white py-32 text-center relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="font-serif font-bold text-3xl mb-4 tracking-tight">RuangRisetKita<span class="text-gold">.id</span></div>
+            <p class="text-white/30 text-[10px] uppercase tracking-[0.4em] mb-16 italic">Empowering Integrity, Data, and Soul</p>
+            <div class="text-[10px] text-white/10 uppercase tracking-[0.3em] font-bold border-t border-white/5 pt-12">© 2026 Ruang Riset Kita • Jakarta, Indonesia</div>
         </div>
     </footer>
 
+    <!-- LOGIC SCRIPTING -->
     <script>
-        // Init Icons
+        // Start Lucide
         lucide.createIcons();
 
-        // TABS LOGIC
+        // Switch Content Tabs
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(link => {
@@ -314,24 +414,23 @@
                 link.classList.add('text-slate-400');
             });
             document.getElementById(tabId).classList.add('active');
-            const activeBtn = Array.from(document.querySelectorAll('.nav-link')).find(btn => btn.innerText.toLowerCase().includes(tabId === 'services' ? 'riset' : tabId));
+            
+            const mapping = { 'home':'beranda', 'philosophy':'filosofi', 'services':'layanan', 'screening':'screening', 'shop':'store', 'member':'anggota' };
+            const activeBtn = Array.from(document.querySelectorAll('.nav-link')).find(btn => btn.innerText.toLowerCase().includes(mapping[tabId]));
             if (activeBtn) {
                 activeBtn.classList.remove('text-slate-400');
                 activeBtn.classList.add('text-navy', 'border-b-2', 'border-gold');
             }
-            window.scrollTo(0,0);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            lucide.createIcons();
         }
 
-        // SIDEBAR TOGGLES
-        function toggleMenu() { 
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden'); 
-            menu.classList.toggle('flex'); 
-        }
+        // Navbar Toggles
+        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); document.getElementById('mobile-menu').classList.toggle('flex'); }
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('hidden'); }
 
-        // DASS-21 LOGIC
-        const dassQuestions = [
+        // DASS-21 ENGINE
+        const questions = [
             { t: "Saya merasa sulit untuk tenang.", c: "s" },
             { t: "Saya merasa mulut saya kering.", c: "a" },
             { t: "Saya seolah tidak dapat merasakan perasaan positif sama sekali.", c: "d" },
@@ -354,116 +453,107 @@
             { t: "Saya merasa takut tanpa alasan yang jelas.", c: "a" },
             { t: "Saya merasa bahwa hidup ini tidak berarti.", c: "d" }
         ];
+        let currentQ = 0;
+        let scoreData = { d: 0, a: 0, s: 0 };
 
-        let dassIdx = 0;
-        let dassScores = { d: 0, a: 0, s: 0 };
-
-        function startDass() {
-            document.getElementById('dass-intro').classList.add('hidden');
-            document.getElementById('dass-quiz').classList.remove('hidden');
-            showDassQ();
+        function startDass() { document.getElementById('dass-intro').classList.add('hidden'); document.getElementById('dass-quiz').classList.remove('hidden'); renderQ(); }
+        function renderQ() {
+            document.getElementById('dass-question').innerText = questions[currentQ].t;
+            document.getElementById('dass-progress-text').innerText = `${currentQ + 1} / 21`;
+            document.getElementById('dass-progress-bar').style.width = `${((currentQ + 1) / 21) * 100}%`;
         }
-
-        function showDassQ() {
-            document.getElementById('dass-question').innerText = dassQuestions[dassIdx].t;
-            document.getElementById('dass-progress-text').innerText = `${dassIdx + 1} / 21`;
-            document.getElementById('dass-progress-bar').style.width = `${((dassIdx + 1) / 21) * 100}%`;
-        }
-
         function answerDass(val) {
-            dassScores[dassQuestions[dassIdx].c] += val;
-            if (dassIdx < 20) {
-                dassIdx++;
-                showDassQ();
-            } else {
-                showDassResults();
-            }
+            scoreData[questions[currentQ].c] += val;
+            if (currentQ < 20) { currentQ++; renderQ(); } else { showDassResults(); }
         }
 
-        function getDassLevel(score, type) {
-            const s = score * 2; 
-            if (type === 'd') {
-                if (s <= 9) return "Normal";
-                if (s <= 13) return "Ringan";
-                if (s <= 20) return "Sedang";
-                return "Tinggi";
+        function determineStatus(val, type) {
+            const final = val * 2;
+            if (type === 'd') { // Depression
+                if (final <= 9) return "Normal";
+                if (final <= 13) return "Ringan";
+                if (final <= 20) return "Sedang";
+                if (final <= 27) return "Parah";
+                return "Sangat-Parah";
             }
-            if (type === 'a') {
-                if (s <= 7) return "Normal";
-                if (s <= 9) return "Ringan";
-                if (s <= 14) return "Sedang";
-                return "Tinggi";
+            if (type === 'a') { // Anxiety
+                if (final <= 7) return "Normal";
+                if (final <= 9) return "Ringan";
+                if (final <= 14) return "Sedang";
+                if (final <= 19) return "Parah";
+                return "Sangat-Parah";
             }
-            if (type === 's') {
-                if (s <= 14) return "Normal";
-                if (s <= 18) return "Ringan";
-                if (s <= 25) return "Sedang";
-                return "Tinggi";
+            if (type === 's') { // Stress
+                if (final <= 14) return "Normal";
+                if (final <= 18) return "Ringan";
+                if (final <= 25) return "Sedang";
+                if (final <= 33) return "Parah";
+                return "Sangat-Parah";
             }
         }
 
         function showDassResults() {
             document.getElementById('dass-quiz').classList.add('hidden');
             document.getElementById('dass-result').classList.remove('hidden');
-            const d = getDassLevel(dassScores.d, 'd');
-            const a = getDassLevel(dassScores.a, 'a');
-            const s = getDassLevel(dassScores.s, 's');
-            document.getElementById('res-d').innerText = d;
-            document.getElementById('res-a').innerText = a;
-            document.getElementById('res-s').innerText = s;
+            const dS = determineStatus(scoreData.d, 'd'), aS = determineStatus(scoreData.a, 'a'), stS = determineStatus(scoreData.s, 's');
             
-            let rec = "Harmoni jiwa Anda dalam keadaan yang baik. Tetap jaga keseimbangan pikiran dengan musik meditatif harian.";
-            if (d !== 'Normal' || a !== 'Normal' || s !== 'Normal') {
-                rec = "Anda menunjukkan tingkat ketegangan yang membutuhkan perhatian. Kami menyarankan Anda mencoba Aplikasi Shalawat atau konsultasi pendampingan riset yang lebih tenang bersama tim kami.";
-            }
-            document.getElementById('res-rec').innerText = rec;
-        }
+            ['d','a','s'].forEach(key => {
+                const res = key === 'd' ? dS : key === 'a' ? aS : stS;
+                document.getElementById(`res-${key}`).innerText = res.replace('-',' ');
+                document.getElementById(`badge-${key}`).innerText = res.replace('-',' ');
+                document.getElementById(`badge-${key}`).className = `status-badge mt-4 inline-block bg-status-${res}`;
+                document.getElementById(`card-${key}`).className = `p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700 bg-status-${res}`;
+            });
 
-        // CART LOGIC
-        let cart = [];
-        function addToCart(name, price) {
-            if(cart.find(i => i.name === name)) return;
-            cart.push({name, price});
-            renderCart();
-            document.getElementById('cart-sidebar').classList.remove('hidden');
-        }
-
-        function renderCart() {
-            const list = document.getElementById('cart-items');
-            const footer = document.getElementById('cart-footer');
-            const badge = document.getElementById('cart-count');
-            if(cart.length === 0) {
-                list.innerHTML = '<p class="text-center text-slate-400 py-20 italic">Belum ada pilihan harmoni</p>';
-                footer.classList.add('hidden');
-                badge.classList.add('hidden');
+            let advice = "";
+            if (dS === "Normal" && aS === "Normal" && stS === "Normal") {
+                advice = "Luar biasa! Harmoni jiwa Anda berada dalam level optimal. Kami merekomendasikan Anda untuk tetap menjaga keseimbangan ini guna mendukung produktivitas riset yang maksimal.";
+                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-green-500 bg-green-50 text-green-900";
+            } else if (dS === "Ringan" || aS === "Ringan" || stS === "Ringan") {
+                advice = "Anda menunjukkan indikasi ketegangan emosional ringan. Hal ini wajar dalam proses akademik yang intens, namun butuh perhatian. Kami menyarankan Anda mencoba beberapa produk kami seperti Aplikasi Shalawat kami sebagai elemen relaksasi harian.";
+                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-yellow-500 bg-yellow-50 text-yellow-900";
             } else {
-                list.innerHTML = cart.map((item, idx) => `
-                    <div class="flex justify-between items-center p-4 bg-slate-50 rounded-2xl border border-slate-100">
-                        <div><div class="text-sm font-bold text-navy">${item.name}</div><div class="text-gold font-bold">Rp ${item.price.toLocaleString()}</div></div>
-                        <button onclick="removeFromCart(${idx})" class="text-red-400 p-2"><i data-lucide="trash-2" size="18"></i></button>
-                    </div>
-                `).join('');
-                footer.classList.remove('hidden');
-                badge.classList.remove('hidden');
-                badge.innerText = cart.length;
-                document.getElementById('cart-total').innerText = 'Rp ' + cart.reduce((s, i) => s + i.price, 0).toLocaleString();
+                advice = "Hasil menunjukkan tingkat tekanan emosional yang cukup signifikan. Jangan biarkan riset Anda mengorbankan batin. Kami sangat menyarankan sesi konsultasi bimbingan yang humanis bersama tim ahli RRK.";
+                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-red-500 bg-red-50 text-red-900";
+            }
+            document.getElementById('res-rec').innerText = advice;
+            lucide.createIcons();
+        }
+
+        // STORE SYSTEM
+        let userCart = [];
+        function addToCart(n, p) {
+            if(userCart.find(i => i.n === n)) return;
+            userCart.push({n, p});
+            syncCartUI();
+            toggleCart();
+        }
+        function syncCartUI() {
+            const list = document.getElementById('cart-items'), footer = document.getElementById('cart-footer'), badge = document.getElementById('cart-count'), empty = document.getElementById('empty-cart-msg');
+            if(userCart.length === 0) { list.innerHTML = ''; empty.style.display = 'block'; footer.classList.add('hidden'); badge.classList.add('hidden'); }
+            else {
+                empty.style.display = 'none';
+                list.innerHTML = userCart.map((i, x) => `
+                    <div class="flex justify-between items-center p-6 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-sm">
+                        <div class="text-sm font-bold text-navy uppercase tracking-tight">${i.n}</div>
+                        <button onclick="popItem(${x})" class="text-red-400 p-2 hover:bg-red-50 rounded-full transition-all"><i data-lucide="trash-2" size="18"></i></button>
+                    </div>`).join('');
+                footer.classList.remove('hidden'); badge.classList.remove('hidden');
+                badge.innerText = userCart.length;
+                document.getElementById('cart-total').innerText = 'Rp ' + userCart.reduce((v, i) => v + i.p, 0).toLocaleString();
                 lucide.createIcons();
             }
         }
-        function removeFromCart(idx) { cart.splice(idx, 1); renderCart(); }
-        function handleWaCheckout() {
-            const items = cart.map(i => i.name).join(', ');
-            handleWa(`Halo RRK, saya ingin memesan: ${items}`);
-        }
-        function handleWa(msg) { window.open(`https://wa.me/6282125256660?text=${encodeURIComponent(msg)}`, '_blank'); }
+        function popItem(x) { userCart.splice(x, 1); syncCartUI(); }
+        function handleWaCheckout() { handleWa(`Halo RRK, saya mau pesan: ${userCart.map(i => i.n).join(', ')}. Mohon info pembayarannya.`); }
+        function handleWa(m) { window.open(`https://wa.me/6282125256660?text=${encodeURIComponent(m)}`, '_blank'); }
 
-        // Navbar Scroll
+        // STICKY NAVBAR SCROLL
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) { nav.classList.add('bg-white/90', 'backdrop-blur-md', 'shadow-md', 'py-3'); }
-            else { nav.classList.remove('bg-white/90', 'backdrop-blur-md', 'shadow-md', 'py-3'); }
+            if (window.scrollY > 50) { nav.classList.add('glass-nav', 'py-4', 'shadow-2xl'); }
+            else { nav.classList.remove('glass-nav', 'py-4', 'shadow-2xl'); }
         });
     </script>
 </body>
 </html>
-
