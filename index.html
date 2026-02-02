@@ -53,16 +53,19 @@
 
         .progress-bar-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        .btn-hover-effect { transition: all 0.3s ease; }
-        .btn-hover-effect:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(10, 25, 47, 0.2); }
+        /* Interactive Icon Cards */
+        .value-card { cursor: pointer; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid transparent; }
+        .value-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .value-card.active { transform: scale(1.05); border-color: var(--gold); box-shadow: 0 20px 40px -10px rgba(212, 175, 55, 0.2); background: var(--navy); color: white !important; }
+        .value-card.active i { color: var(--gold) !important; }
+        .value-card.active span { color: white !important; }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
+    <!-- Navigasi Utama -->
     <nav id="navbar" class="fixed w-full z-[100] transition-all duration-500 py-6 px-6 lg:px-16">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Brand -->
             <div class="flex items-center gap-4 cursor-pointer group" onclick="switchTab('home')">
                 <div class="w-12 h-12 bg-navy rounded-2xl flex items-center justify-center shadow-xl border border-gold/20 group-hover:border-gold transition-all">
                     <span class="text-gold font-serif font-bold text-2xl">R</span>
@@ -77,148 +80,133 @@
                 </div>
             </div>
 
-            <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-10">
                 <button onclick="switchTab('home')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-navy border-b-2 border-gold pb-1">Beranda</button>
                 <button onclick="switchTab('philosophy')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Filosofi</button>
                 <button onclick="switchTab('services')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Layanan</button>
                 <button onclick="switchTab('screening')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Screening</button>
                 <button onclick="switchTab('shop')" class="nav-link text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 hover:text-navy transition-colors">Store</button>
-                
                 <div class="h-6 w-[1px] bg-slate-200 mx-2"></div>
-                
                 <button onclick="switchTab('member')" class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-navy hover:text-gold transition-colors">
                     <i data-lucide="user-circle" size="18"></i> Area Anggota
                 </button>
-                
-                <button onclick="toggleCart()" class="relative text-navy hover:scale-110 transition-transform">
+                <button onclick="toggleCart()" class="relative text-navy">
                     <i data-lucide="shopping-bag" size="20"></i>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-gold text-white text-[8px] w-4.5 h-4.5 rounded-full flex items-center justify-center border-2 border-white hidden font-bold">0</span>
                 </button>
             </div>
-
-            <!-- Mobile Burger -->
             <button class="lg:hidden text-navy" onclick="toggleMenu()"><i data-lucide="menu" size="28"></i></button>
         </div>
     </nav>
 
-    <!-- Mobile Navigation Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-navy p-12 hidden flex-col gap-8">
+    <!-- Overlay Navigasi Mobile -->
+    <div id="mobile-menu" class="fixed inset-0 z-[150] bg-navy p-12 hidden flex-col gap-8 transition-all duration-300">
         <div class="flex justify-end"><button onclick="toggleMenu()" class="text-white"><i data-lucide="x" size="36"></i></button></div>
         <button onclick="switchTab('home'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">BERANDA</button>
         <button onclick="switchTab('philosophy'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">FILOSOFI</button>
         <button onclick="switchTab('services'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">LAYANAN</button>
         <button onclick="switchTab('screening'); toggleMenu()" class="text-3xl font-serif font-bold text-gold text-left uppercase tracking-widest">SCREENING DASS</button>
         <button onclick="switchTab('member'); toggleMenu()" class="text-3xl font-serif font-bold text-white text-left uppercase tracking-widest">MEMBER AREA</button>
-        <button onclick="handleWa('Halo RRK, saya ingin daftar member gratis.')" class="mt-auto bg-gold text-navy py-5 rounded-2xl font-bold uppercase tracking-[0.2em] text-center shadow-2xl">Daftar Akun Gratis</button>
+        <button onclick="handleWa('Halo RRK, saya ingin daftar member gratis.')" class="mt-auto bg-gold text-navy py-5 rounded-2xl font-bold uppercase tracking-widest text-center shadow-2xl">Daftar Akun Gratis</button>
     </div>
 
-    <!-- Main Content Container -->
     <main class="pt-44 pb-32 px-6 lg:px-20 max-w-7xl mx-auto">
         
-        <!-- SECTION: HOME -->
+        <!-- BERANDA -->
         <section id="home" class="tab-content active text-center max-w-4xl mx-auto">
             <div class="inline-flex items-center gap-3 px-6 py-2 bg-slate-50 text-navy text-[10px] font-bold rounded-full mb-10 uppercase tracking-[0.2em] border border-slate-200">
                 <span class="flex h-2 w-2 rounded-full bg-gold animate-pulse"></span>
                 Harmony of Logic & Soul
             </div>
-            <h1 class="font-serif text-5xl md:text-8xl font-bold mb-10 text-navy leading-[1.1]">Riset Akurat,<br><span class="text-gold italic">Mental Sehat</span>.</h1>
-            <p class="text-lg md:text-2xl text-slate-500 mb-14 max-w-2xl mx-auto leading-relaxed">Ekosistem pendampingan penelitian pertama yang mengintegrasikan data akurat dengan elemen kesejahteraan mental.</p>
+            <h1 class="font-serif text-5xl md:text-8xl font-bold mb-10 text-navy leading-[1.1]">Riset Tajam,<br><span class="text-gold italic">Jiwa Tenang</span>.</h1>
+            <p class="text-lg md:text-2xl text-slate-500 mb-14 max-w-2xl mx-auto leading-relaxed text-center">Ekosistem pendampingan penelitian pertama yang mengintegrasikan data saintifik dengan kesejahteraan mental peneliti.</p>
             <div class="flex flex-col sm:flex-row gap-6 justify-center">
-                <button onclick="switchTab('screening')" class="btn-hover-effect bg-navy text-white px-12 py-6 rounded-full font-bold shadow-2xl flex items-center justify-center gap-3">
-                    Mulai Evaluasi Jiwa <i data-lucide="brain" size="20"></i>
+                <button onclick="switchTab('screening')" class="bg-navy text-white px-12 py-6 rounded-full font-bold shadow-2xl flex items-center justify-center gap-3 transition-all hover:scale-105">
+                    Mulai Evaluasi Mental Anda <i data-lucide="brain" size="20"></i>
                 </button>
-                <button onclick="switchTab('services')" class="btn-hover-effect border-2 border-gold text-gold px-12 py-6 rounded-full font-bold hover:bg-gold hover:text-white transition-all">
+                <button onclick="switchTab('services')" class="border-2 border-gold text-gold px-12 py-6 rounded-full font-bold hover:bg-gold hover:text-white transition-all">
                     Layanan Profesional
                 </button>
             </div>
         </section>
 
-        <!-- SECTION: PHILOSOPHY -->
+        <!-- FILOSOFI (INTERAKTIF) -->
         <section id="philosophy" class="tab-content">
             <div class="grid lg:grid-cols-2 gap-20 items-center">
                 <div class="space-y-8">
-                    <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy">Filosofi Kami</h2>
+                    <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy">Filosofi Harmoni</h2>
                     <div class="space-y-6 text-slate-600 text-lg leading-relaxed text-justify">
-                        <p>Penelitian seringkali dianggap sebagai beban kaku yang melelahkan secara mental. Di Ruang Riset Kita, kami memutus siklus tersebut dengan pendekatan harmonisasi.</p>
-                        <div class="bg-slate-50 p-10 rounded-[3rem] border-l-[12px] border-gold shadow-sm">
-                            <h4 class="text-navy font-serif font-bold text-2xl mb-4 italic">"Music for the Mind, Data for the Truth"</h4>
-                            <p class="text-base text-slate-500 font-medium">Kami percaya bahwa inovasi cemerlang hanya lahir dari pikiran yang seimbang dan tenang.</p>
+                        <p>Penelitian seringkali dianggap sebagai beban kaku. Di Ruang Riset Kita, kami menyatukan logika dan rasa melalui 4 pilar utama.</p>
+                        
+                        <!-- Box Detail Interaktif -->
+                        <div id="value-detail-box" class="bg-slate-50 p-10 rounded-[3rem] border-l-[12px] border-gold shadow-sm transition-all duration-500 min-h-[220px] flex flex-col justify-center">
+                            <h4 id="value-title" class="text-navy font-serif font-bold text-2xl mb-4 italic">"Music for the Mind, Data for the Truth"</h4>
+                            <p id="value-desc" class="text-base text-slate-500 font-medium italic text-center">Klik salah satu ikon pilar di samping untuk melihat bagaimana nilai tersebut mendukung riset Anda.</p>
                         </div>
-                        <p>Visi kami berkeinginan untuk mendemokratisasi riset. Memastikan akademisi,praktisi UMKM , dan masyarakat memiliki akses data akurat tanpa harus mengorbankan kesejahteraan batin mereka.</p>
                     </div>
                 </div>
+                
                 <div class="grid grid-cols-2 gap-6">
-                    <div class="bg-navy p-10 rounded-[3.5rem] text-white flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
-                        <i data-lucide="brain" class="text-gold mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Logika</span>
+                    <!-- Logika -->
+                    <div id="val-logika" onclick="showValueDetail('logika')" class="value-card bg-slate-50 p-10 rounded-[3.5rem] flex flex-col items-center text-center shadow-lg group">
+                        <i data-lucide="brain" class="text-gold mb-6 group-hover:scale-110 transition-transform" size="44"></i>
+                        <span class="font-bold tracking-[0.1em] uppercase text-xs text-navy">Logika</span>
                     </div>
-                    <div class="bg-gold p-10 rounded-[3.5rem] text-navy flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
-                        <i data-lucide="heart" class="mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Empati</span>
+                    <!-- Empati -->
+                    <div id="val-empati" onclick="showValueDetail('empati')" class="value-card bg-slate-50 p-10 rounded-[3.5rem] flex flex-col items-center text-center shadow-lg group">
+                        <i data-lucide="heart" class="text-gold mb-6 group-hover:scale-110 transition-transform" size="44"></i>
+                        <span class="font-bold tracking-[0.1em] uppercase text-xs text-navy">Empati</span>
                     </div>
-                    <div class="bg-slate-50 border p-10 rounded-[3.5rem] text-navy flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
-                        <i data-lucide="music" class="text-gold mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Nada</span>
+                    <!-- Nada -->
+                    <div id="val-nada" onclick="showValueDetail('nada')" class="value-card bg-slate-50 p-10 rounded-[3.5rem] flex flex-col items-center text-center shadow-lg group">
+                        <i data-lucide="music" class="text-gold mb-6 group-hover:scale-110 transition-transform" size="44"></i>
+                        <span class="font-bold tracking-[0.1em] uppercase text-xs text-navy">Nada</span>
                     </div>
-                    <div class="bg-navy p-10 rounded-[3.5rem] text-white flex flex-col items-center text-center shadow-xl transition-all hover:-translate-y-2">
-                        <i data-lucide="database" class="text-gold mb-6" size="44"></i><span class="font-bold tracking-[0.1em] uppercase text-xs">Data</span>
+                    <!-- Data -->
+                    <div id="val-data" onclick="showValueDetail('data')" class="value-card bg-slate-50 p-10 rounded-[3.5rem] flex flex-col items-center text-center shadow-lg group">
+                        <i data-lucide="database" class="text-gold mb-6 group-hover:scale-110 transition-transform" size="44"></i>
+                        <span class="font-bold tracking-[0.1em] uppercase text-xs text-navy">Data</span>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: SERVICES -->
+        <!-- LAYANAN -->
         <section id="services" class="tab-content">
             <div class="text-center mb-20">
                 <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy mb-4">Layanan Riset</h2>
                 <p class="text-slate-500 text-lg">Solusi pendampingan komprehensif untuk menyukseskan mahakarya Anda.</p>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Service Cards -->
+                <!-- Layanan Cards -->
                 <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
                     <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="layout" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Desain Riset</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Penyusunan kerangka berpikir, penentuan variabel, dan metodologi saintifik yang kuat agar riset memiliki fondasi kokoh.</p>
-                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Desain Riset')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy text-center md:text-left">Desain Riset</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow text-justify">Penyusunan kerangka berpikir, variabel, dan metodologi saintifik yang kuat agar riset Anda memiliki fondasi yang kokoh.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Desain Riset')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2 self-center md:self-start">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
                 <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
                     <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="database" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Olah Data Pro</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Cleaning, koding, dan pengolahan data profesional menggunakan SPSS, R, M. Plus, Stata, AMOS, atau SmartPLS.</p>
-                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Olah Data')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy text-center md:text-left">Olah Data Pro</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow text-justify">Layanan koding dan pengolahan data profesional menggunakan SPSS, R, Stata, MPlus, AMOS, atau SmartPLS secara akurat.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Olah Data')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2 self-center md:self-start">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
                 <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
                     <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="search" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Analisis Data</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Interpretasi statistik mendalam untuk menemukan temuan kunci bagi publikasi jurnal atau skripsi.</p>
-                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Analisis Data')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
-                </div>
-                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="edit-3" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Bantuan Penulisan</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Pendampingan penyusunan draf naskah jurnal internasional, skripsi, tesis, dan disertasi secara orisinal.</p>
-                    <button onclick="handleWa('Halo RRK, saya butuh Bantuan Penulisan')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
-                </div>
-                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="book-check" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Editing & Proofing</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Pembersihan naskah dari kesalahan bahasa dan penyesuaian gaya selingkung standar akademik.</p>
-                    <button onclick="handleWa('Halo RRK, saya butuh Proofreading')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
-                </div>
-                <div class="bg-white p-12 rounded-[3.5rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all group border-b-8 border-transparent hover:border-gold flex flex-col">
-                    <div class="w-16 h-16 bg-slate-50 text-gold rounded-2xl flex items-center justify-center mb-10 group-hover:bg-navy transition-all duration-500"><i data-lucide="users" size="32"></i></div>
-                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy">Riset Lapangan</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow">Pengumpulan data primer melalui pendekatan kuantitaif dan kualitatif yang terukur.</p>
-                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Riset Lapangan')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
+                    <h3 class="text-2xl font-serif font-bold mb-4 text-navy text-center md:text-left">Analisis Data</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed mb-10 flex-grow text-justify">Interpretasi statistik mendalam untuk menemukan temuan kunci (key findings) bagi kebutuhan publikasi jurnal atau skripsi.</p>
+                    <button onclick="handleWa('Halo RRK, saya butuh Jasa Analisis Data')" class="text-[11px] font-bold uppercase tracking-widest text-navy hover:text-gold flex items-center gap-2 self-center md:self-start">Konsultasi <i data-lucide="chevron-right" size="14"></i></button>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: SCREENING DASS-21 -->
+        <!-- SCREENING (DASS-21 DINAMIS) -->
         <section id="screening" class="tab-content max-w-4xl mx-auto">
             <div id="dass-intro" class="bg-white p-12 md:p-24 rounded-[4rem] shadow-2xl text-center border border-slate-50">
                 <div class="w-20 h-20 bg-slate-50 rounded-3xl flex items-center justify-center mx-auto mb-10 text-gold shadow-inner"><i data-lucide="activity" size="40"></i></div>
-                <h2 class="font-serif text-4xl md:text-6xl font-bold mb-8 text-navy leading-tight">Evaluasi Jiwa DASS-21</h2>
-                <p class="text-slate-500 text-xl mb-12 leading-relaxed">Ukur secara objektif tingkat depresi, kecemasan, dan stres Anda sebagai peneliti menggunakan instrumen akademik standar dunia.</p>
-                <button onclick="startDass()" class="btn-hover-effect bg-navy text-white px-14 py-6 rounded-full font-bold shadow-2xl text-lg tracking-widest uppercase">Mulai Test Gratis</button>
+                <h2 class="font-serif text-4xl md:text-6xl font-bold mb-8 text-navy leading-tight text-center">Evaluasi Jiwa DASS-21</h2>
+                <p class="text-slate-500 text-xl mb-12 leading-relaxed text-center">Ukur secara ilmiah tingkat depresi, kecemasan, dan stres Anda sebagai peneliti menggunakan instrumen standar akademik.</p>
+                <button onclick="startDass()" class="bg-navy text-white px-14 py-6 rounded-full font-bold shadow-2xl text-lg tracking-widest uppercase">Mulai Test Sekarang</button>
             </div>
 
             <!-- Quiz Screen -->
@@ -234,32 +222,29 @@
                 </div>
                 <h3 id="dass-question" class="font-serif text-2xl md:text-4xl font-bold text-navy mb-14 leading-tight min-h-[6rem] text-center">...</h3>
                 <div class="grid grid-cols-1 gap-5">
-                    <button onclick="answerDass(0)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">0 - Tidak pernah sama sekali</button>
-                    <button onclick="answerDass(1)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">1 - Kadang-kadang / Jarang</button>
-                    <button onclick="answerDass(2)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">2 - Sering / Cukup banyak waktu</button>
-                    <button onclick="answerDass(3)" class="btn-hover-effect w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">3 - Sangat sering / Sebagian besar waktu</button>
+                    <button onclick="answerDass(0)" class="w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">0 - Tidak pernah sama sekali</button>
+                    <button onclick="answerDass(1)" class="w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">1 - Kadang-kadang / Jarang</button>
+                    <button onclick="answerDass(2)" class="w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">2 - Sering / Cukup banyak waktu</button>
+                    <button onclick="answerDass(3)" class="w-full text-center p-8 border-2 border-slate-100 rounded-3xl hover:border-gold hover:bg-slate-50 transition-all font-semibold text-lg">3 - Sangat sering / Sebagian besar waktu</button>
                 </div>
             </div>
 
-            <!-- Result Screen (Cerdas & Dinamis) -->
+            <!-- HASIL DINAMIS (KATEGORI WARNA) -->
             <div id="dass-result" class="bg-white p-10 md:p-20 rounded-[4rem] shadow-2xl hidden border border-slate-50 text-center">
-                <h3 class="font-serif text-4xl font-bold mb-4 text-navy leading-tight">Hasil Analisis</h3>
-                <p class="text-slate-400 mb-16 text-lg italic tracking-wide">Interpretasi skor DASS-21 Anda</p>
+                <h3 class="font-serif text-4xl font-bold mb-4 text-navy leading-tight text-center">Laporan Analisis Jiwa</h3>
+                <p class="text-slate-400 mb-16 text-lg italic tracking-wide text-center">Interpretasi skor DASS-21 Anda</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-                    <!-- Depression Card -->
                     <div id="card-d" class="p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700">
                         <div class="text-[11px] uppercase font-bold text-slate-400 mb-4 tracking-[0.2em]">Depresi</div>
                         <div id="res-d" class="text-3xl font-bold">...</div>
                         <div id="badge-d" class="status-badge mt-4 inline-block">Normal</div>
                     </div>
-                    <!-- Anxiety Card -->
                     <div id="card-a" class="p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700">
                         <div class="text-[11px] uppercase font-bold text-slate-400 mb-4 tracking-[0.2em]">Kecemasan</div>
                         <div id="res-a" class="text-3xl font-bold">...</div>
                         <div id="badge-a" class="status-badge mt-4 inline-block">Normal</div>
                     </div>
-                    <!-- Stress Card -->
                     <div id="card-s" class="p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700">
                         <div class="text-[11px] uppercase font-bold text-slate-400 mb-4 tracking-[0.2em]">Stres</div>
                         <div id="res-s" class="text-3xl font-bold">...</div>
@@ -268,14 +253,12 @@
                 </div>
 
                 <div id="recommendation-box" class="p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border transition-all duration-700">
-                    <h4 class="font-bold mb-6 uppercase tracking-[0.3em] text-[10px] flex items-center gap-3">
-                        <i data-lucide="lightbulb" size="16"></i> Insight Strategis
-                    </h4>
+                    <h4 class="font-bold mb-6 uppercase tracking-[0.3em] text-[10px] flex items-center gap-3"><i data-lucide="lightbulb" size="16"></i> Insight Strategis</h4>
                     <p id="res-rec" class="text-xl leading-relaxed font-medium text-navy">...</p>
                 </div>
 
-                <div class="flex flex-col md:flex-row gap-6 justify-center">
-                    <button onclick="handleWa('Halo RRK, ini hasil screening DASS-21 saya. Mohon bantuan bimbingannya.')" class="btn-hover-effect bg-navy text-white px-14 py-6 rounded-full font-bold shadow-xl flex items-center justify-center gap-3">
+                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <button onclick="handleWa('Halo RRK, ini hasil screening DASS-21 saya. Mohon bantuan bimbingannya.')" class="bg-navy text-white px-14 py-6 rounded-full font-bold shadow-xl flex items-center justify-center gap-3">
                         Konsultasi via WhatsApp <i data-lucide="message-circle" size="20"></i>
                     </button>
                     <button onclick="location.reload()" class="text-slate-400 text-xs font-bold uppercase tracking-[0.3em] hover:text-navy py-6 transition-colors">Ulangi Tes</button>
@@ -283,81 +266,57 @@
             </div>
         </section>
 
-        <!-- SECTION: STORE -->
+        <!-- STORE -->
         <section id="shop" class="tab-content">
             <div class="text-center mb-20">
-                <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy mb-4 text-center">Digital Store</h2>
-                <p class="text-slate-500 text-lg text-center mx-auto max-w-2xl">Instrumen premium untuk mendukung kesehatan mental & riset Anda.</p>
+                <h2 class="font-serif text-4xl md:text-6xl font-bold text-navy mb-4 text-center">Store Digital</h2>
+                <p class="text-slate-500 text-lg text-center">Instrumen premium untuk kesehatan mental & riset.</p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="bg-white p-10 rounded-[4rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col group">
                     <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-8 group-hover:bg-navy transition-all duration-500"><i data-lucide="music-2" size="32"></i></div>
                     <span class="text-[10px] font-bold text-slate-300 uppercase mb-4">Mobile App</span>
                     <h3 class="text-xl font-serif font-bold mb-4 text-navy min-h-[3rem]">Aplikasi Shalawat</h3>
-                    <p class="text-slate-500 text-xs mb-8 flex-grow leading-relaxed text-justify">Koleksi nada meditatif penenang jiwa untuk menjaga kedamaian batin peneliti.</p>
+                    <p class="text-slate-500 text-xs mb-8 flex-grow leading-relaxed text-justify">Nada meditatif penenang jiwa untuk menjaga fokus harian peneliti.</p>
                     <p class="text-2xl font-bold text-navy mb-8 tracking-tighter text-center">Rp 100.000</p>
-                    <button onclick="addToCart('Aplikasi Shalawat', 100000)" class="btn-hover-effect w-full py-5 rounded-3xl bg-navy text-white font-bold hover:bg-gold transition-all text-[10px] uppercase tracking-widest">Tambah</button>
+                    <button onclick="addToCart('Aplikasi Shalawat', 50000)" class="w-full py-5 rounded-3xl bg-navy text-white font-bold hover:bg-gold transition-all text-xs uppercase tracking-widest shadow-lg">Tambah</button>
                 </div>
                 <div class="bg-white p-10 rounded-[4rem] border border-slate-100 shadow-sm hover:shadow-2xl transition-all flex flex-col group">
                     <div class="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center text-gold mb-8 group-hover:bg-navy transition-all duration-500"><i data-lucide="sparkles" size="32"></i></div>
                     <span class="text-[10px] font-bold text-slate-300 uppercase mb-4">Mobile App</span>
                     <h3 class="text-xl font-serif font-bold mb-4 text-navy min-h-[3rem]">Mirror of Me</h3>
-                    <p class="text-slate-500 text-xs mb-8 flex-grow leading-relaxed text-justify">Aplikasi refleksi diri harian interaktif berbasis psikologi klinis untuk peneliti.</p>
+                    <p class="text-slate-500 text-xs mb-8 flex-grow leading-relaxed text-justify">Aplikasi refleksi diri harian berbasis psikologi untuk peneliti.</p>
                     <p class="text-2xl font-bold text-navy mb-8 tracking-tighter text-center">Rp 150.000</p>
-                    <button onclick="addToCart('Mirror of Me', 150000)" class="btn-hover-effect w-full py-5 rounded-3xl bg-navy text-white font-bold hover:bg-gold transition-all text-[10px] uppercase tracking-widest">Tambah</button>
+                    <button onclick="addToCart('Mirror of Me', 70000)" class="w-full py-5 rounded-3xl bg-navy text-white font-bold hover:bg-gold transition-all text-xs uppercase tracking-widest shadow-lg">Tambah</button>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION: MEMBER AREA (Mockup Dashboard) -->
+        <!-- MEMBER AREA (MOCKUP) -->
         <section id="member" class="tab-content max-w-6xl mx-auto">
             <div class="flex flex-col md:flex-row justify-between items-end mb-12 border-b pb-8">
                 <div>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy mb-2 text-center md:text-left">Member Dashboard</h2>
-                    <p class="text-slate-400 font-medium italic text-center md:text-left">Selamat datang di pusat kendali mahakarya Anda.</p>
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold text-navy mb-2 text-center md:text-left">Member Hub</h2>
+                    <p class="text-slate-400 font-medium italic text-center md:text-left">Pusat kendali riset dan harmoni batin Anda.</p>
                 </div>
                 <div class="mt-6 md:mt-0 text-center"><span class="status-badge bg-green-100 text-green-700 px-6 py-3 rounded-full font-bold shadow-sm">Premium Access</span></div>
             </div>
-
             <div class="grid lg:grid-cols-3 gap-10">
-                <!-- Widget 1: Riset -->
                 <div class="lg:col-span-2 bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50">
-                    <div class="flex justify-between items-center mb-12">
-                        <h4 class="font-serif text-3xl font-bold text-navy flex items-center gap-4"><i data-lucide="layout"></i> Riset Aktif</h4>
-                        <span class="text-[10px] font-bold uppercase text-gold tracking-widest">1 Proyek Berjalan</span>
-                    </div>
-                    <div class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 shadow-inner">
-                        <div class="flex justify-between mb-6 text-sm font-bold">
-                            <span class="text-navy italic">"Riset Perilaku Konsumen UMKM Jakarta"</span>
-                            <span class="text-navy">85%</span>
-                        </div>
-                        <div class="w-full bg-white h-3 rounded-full overflow-hidden border">
-                            <div class="bg-navy h-full" style="width: 85%"></div>
-                        </div>
-                        <div class="mt-10 flex flex-wrap gap-4">
-                            <button onclick="handleWa('Halo mentor RRK, saya mau tanya progres riset.')" class="bg-white border px-8 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest hover:bg-navy hover:text-white transition-all shadow-sm">Chat Mentor</button>
-                            <button class="bg-white border px-8 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest opacity-30 cursor-not-allowed shadow-sm">Data File</button>
-                        </div>
+                    <div class="flex justify-between items-center mb-12"><h4 class="font-serif text-2xl font-bold text-navy flex items-center gap-3"><i data-lucide="layout"></i> Riset Saya</h4></div>
+                    <div class="bg-slate-50 p-10 rounded-[3.5rem] border border-slate-100 shadow-inner">
+                        <div class="flex justify-between mb-4 text-sm font-bold"><span class="text-navy">Analisis Perilaku Pasar UMKM</span><span class="text-navy">85%</span></div>
+                        <div class="w-full bg-white h-3 rounded-full overflow-hidden border"><div class="bg-navy h-full" style="width: 85%"></div></div>
+                        <div class="mt-8 flex gap-4 justify-center md:justify-start"><button onclick="handleWa('Progres riset saya bagaimana?')" class="bg-white border px-6 py-2.5 rounded-xl text-xs font-bold hover:bg-navy hover:text-white transition-all shadow-sm uppercase tracking-widest">Chat Mentor</button></div>
                     </div>
                 </div>
-
-                <!-- Widget 2: Wellness Log -->
-                <div class="bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50">
-                    <h4 class="font-serif text-3xl font-bold text-navy mb-10 flex items-center gap-4"><i data-lucide="activity"></i> Wellness Logs</h4>
-                    <div class="space-y-8">
-                        <div class="flex justify-between items-center pb-4 border-b">
-                            <span class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Update Terakhir</span>
-                            <span class="text-xs font-bold text-navy">Februari 2026</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="font-medium text-slate-400">Depresi</span>
-                            <span class="font-bold text-green-500 uppercase tracking-widest">NORMAL</span>
-                        </div>
-                        <div class="flex justify-between text-sm">
-                            <span class="font-medium text-slate-400">Cemas</span>
-                            <span class="font-bold text-yellow-500 uppercase tracking-widest">RINGAN</span>
-                        </div>
-                        <button onclick="switchTab('screening')" class="w-full mt-8 bg-slate-50 text-navy py-5 rounded-3xl font-bold text-[10px] uppercase tracking-[0.2em] border border-slate-100 hover:bg-navy hover:text-white transition-all shadow-md">Update Kondisi</button>
+                <div class="bg-white p-12 rounded-[4rem] shadow-xl border border-slate-50 flex flex-col">
+                    <h4 class="font-serif text-2xl font-bold text-navy mb-8 flex items-center gap-3"><i data-lucide="activity"></i> Kondisi Jiwa</h4>
+                    <div class="space-y-6 flex-grow">
+                        <div class="flex justify-between items-center pb-4 border-b text-[10px] font-bold text-slate-500 uppercase tracking-widest"><span>Log</span><span>Feb 2026</span></div>
+                        <div class="flex justify-between text-sm"><span class="font-medium text-slate-400">Depresi</span><span class="font-bold text-green-500">NORMAL</span></div>
+                        <div class="flex justify-between text-sm"><span class="font-medium text-slate-400">Kecemasan</span><span class="font-bold text-yellow-500">RINGAN</span></div>
+                        <button onclick="switchTab('screening')" class="w-full mt-auto bg-slate-50 text-navy py-4 rounded-2xl font-bold text-[10px] uppercase border border-slate-100 hover:bg-navy hover:text-white transition-all">Update Kondisi</button>
                     </div>
                 </div>
             </div>
@@ -365,71 +324,90 @@
 
     </main>
 
-    <!-- Shopping Cart Sidebar Overlay -->
+    <!-- Sidebar Keranjang -->
     <div id="cart-sidebar" class="fixed inset-0 z-[300] hidden">
         <div class="absolute inset-0 bg-navy/80 backdrop-blur-md" onclick="toggleCart()"></div>
-        <div class="absolute right-0 top-0 w-full md:max-w-md h-full bg-white shadow-2xl flex flex-col p-12 animate-in slide-in-from-right duration-500">
-            <div class="flex justify-between items-center mb-12 border-b pb-8">
-                <h3 class="font-serif text-4xl font-bold text-navy flex items-center gap-4"><i data-lucide="shopping-cart" class="text-gold"></i> Pilihan</h3>
-                <button onclick="toggleCart()"><i data-lucide="x" size="24"></i></button>
-            </div>
-            <div id="cart-items" class="flex-grow overflow-y-auto space-y-8 text-center">
-                <p id="empty-cart-msg" class="text-slate-400 py-20 italic font-serif">Belum ada item terpilih.</p>
-            </div>
+        <div class="absolute right-0 top-0 w-full md:max-w-md h-full bg-white shadow-2xl flex flex-col p-12 transition-all">
+            <div class="flex justify-between items-center mb-12 border-b pb-8"><h3 class="font-serif text-3xl font-bold text-navy flex items-center gap-3"><i data-lucide="shopping-cart" class="text-gold"></i> Pilihan</h3><button onclick="toggleCart()"><i data-lucide="x" size="24"></i></button></div>
+            <div id="cart-items" class="flex-grow overflow-y-auto space-y-8"><p id="empty-cart-msg" class="text-slate-400 py-20 italic text-center font-serif">Keranjang belanja Anda kosong.</p></div>
             <div id="cart-footer" class="border-t pt-10 hidden">
-                <div class="flex justify-between mb-10 items-center">
-                    <span class="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Total Kontribusi</span>
-                    <span id="cart-total" class="font-bold text-4xl text-navy tracking-tighter">Rp 0</span>
-                </div>
-                <button onclick="handleWaCheckout()" class="btn-hover-effect w-full bg-navy text-white py-6 rounded-[2.5rem] font-bold shadow-2xl flex items-center justify-center gap-4 text-lg">
-                   Beli di WhatsApp <i data-lucide="message-circle" size="24"></i>
-                </button>
+                <div class="flex justify-between mb-10 items-center"><span class="text-slate-400 font-bold uppercase text-xs">Total</span><span id="cart-total" class="font-bold text-4xl text-navy">Rp 0</span></div>
+                <button onclick="handleWaCheckout()" class="w-full bg-navy text-white py-6 rounded-3xl font-bold shadow-2xl flex items-center justify-center gap-4 text-lg">Konfirmasi Pembelian <i data-lucide="message-circle" size="24"></i></button>
             </div>
         </div>
     </div>
 
-    <!-- Floating UI -->
-    <button onclick="handleWa('Halo Ruang Riset Kita, saya butuh pendampingan riset.')" class="fixed bottom-10 right-10 w-20 h-20 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-[0_20px_50px_rgba(37,211,102,0.3)] z-50 transition-all hover:scale-110 active:scale-95 animate-bounce">
-        <i data-lucide="message-circle" size="36"></i>
-    </button>
+    <!-- Tombol WhatsApp Floating -->
+    <button onclick="handleWa('Halo RRK, saya butuh pendampingan riset.')" class="fixed bottom-10 right-10 w-20 h-20 bg-[#25D366] text-white rounded-full flex items-center justify-center shadow-2xl z-50 transition-all hover:scale-110 active:scale-95 animate-bounce"><i data-lucide="message-circle" size="36"></i></button>
 
     <footer class="bg-navy text-white py-32 text-center relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 relative z-10">
             <div class="font-serif font-bold text-3xl mb-4 tracking-tight">RuangRisetKita<span class="text-gold">.id</span></div>
-            <p class="text-white/30 text-[10px] uppercase tracking-[0.4em] mb-16 italic">Empowering Integrity, Data, and Soul</p>
-            <div class="text-[10px] text-white/10 uppercase tracking-[0.3em] font-bold border-t border-white/5 pt-12">© 2026 Ruang Riset Kita • Jakarta, Indonesia</div>
+            <p class="text-white/30 text-[10px] uppercase tracking-[0.4em] mb-16 italic text-center">Empowering Integrity, Data, and Soul</p>
+            <div class="text-[10px] text-white/10 uppercase tracking-[0.3em] font-bold border-t border-white/5 pt-12 text-center">© 2026 Ruang Riset Kita • South Jakarta, Indonesia</div>
         </div>
     </footer>
 
-    <!-- LOGIC SCRIPTING -->
     <script>
-        // Start Lucide
+        // Inisialisasi Lucide
         lucide.createIcons();
 
-        // Switch Content Tabs
+        // Ganti Tab
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('text-navy', 'border-b-2', 'border-gold');
                 link.classList.add('text-slate-400');
             });
-            document.getElementById(tabId).classList.add('active');
             
-            const mapping = { 'home':'beranda', 'philosophy':'filosofi', 'services':'layanan', 'screening':'screening', 'shop':'store', 'member':'anggota' };
-            const activeBtn = Array.from(document.querySelectorAll('.nav-link')).find(btn => btn.innerText.toLowerCase().includes(mapping[tabId]));
-            if (activeBtn) {
-                activeBtn.classList.remove('text-slate-400');
-                activeBtn.classList.add('text-navy', 'border-b-2', 'border-gold');
+            const target = document.getElementById(tabId);
+            if(target) {
+                target.classList.add('active');
+                const mapping = { 'home':'beranda', 'philosophy':'filosofi', 'services':'layanan', 'screening':'screening', 'shop':'store', 'member':'anggota' };
+                const activeBtn = Array.from(document.querySelectorAll('.nav-link')).find(btn => btn.innerText.toLowerCase().includes(mapping[tabId]));
+                if (activeBtn) {
+                    activeBtn.classList.remove('text-slate-400');
+                    activeBtn.classList.add('text-navy', 'border-b-2', 'border-gold');
+                }
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                lucide.createIcons();
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            lucide.createIcons();
         }
 
-        // Navbar Toggles
-        function toggleMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); document.getElementById('mobile-menu').classList.toggle('flex'); }
+        // Philosophy Interaction Engine
+        const philDetails = {
+            'logika': { title: 'Pilar Logika', desc: 'Pendekatan saintifik yang sistematis dan berbasis bukti untuk menjamin keabsahan riset Anda. Kami memastikan alur berpikir Anda tetap saintifik dan sistematis tanpa celah.' },
+            'empati': { title: 'Sentuhan Empati', desc: 'Memahami peneliti sebagai manusia seutuhnya. Kami tidak hanya mengolah data, tapi mendampingi proses akademik Anda dengan sentuhan humanis yang mendalam.' },
+            'nada': { title: 'Harmoni Nada', desc: 'Integrasi audio terapeutik dan musik penenang untuk meningkatkan fokus kognitif serta mengurangi kelelahan mental saat Anda bekerja keras menyelesaikan riset.' },
+            'data': { title: 'Integritas Data', desc: 'Ketajaman statistik yang jujur untuk mengungkap kebenaran di balik angka. Kami menjamin setiap informasi diolah dengan standar etika penelitian tertinggi.' }
+        };
+
+        function showValueDetail(type) {
+            const data = philDetails[type];
+            document.querySelectorAll('.value-card').forEach(c => c.classList.remove('active'));
+            document.getElementById(`val-${type}`).classList.add('active');
+            
+            const box = document.getElementById('value-detail-box');
+            box.style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('value-title').innerText = data.title;
+                document.getElementById('value-desc').innerText = data.desc;
+                document.getElementById('value-desc').classList.remove('italic');
+                box.style.opacity = '1';
+            }, 200);
+        }
+
+        // Toggles
+        function toggleMenu() { 
+            const menu = document.getElementById('mobile-menu');
+            if(menu) {
+                menu.classList.toggle('hidden'); 
+                menu.classList.toggle('flex'); 
+            }
+        }
         function toggleCart() { document.getElementById('cart-sidebar').classList.toggle('hidden'); }
 
-        // DASS-21 ENGINE
+        // DASS-21 LOGIC
         const questions = [
             { t: "Saya merasa sulit untuk tenang.", c: "s" },
             { t: "Saya merasa mulut saya kering.", c: "a" },
@@ -453,106 +431,72 @@
             { t: "Saya merasa takut tanpa alasan yang jelas.", c: "a" },
             { t: "Saya merasa bahwa hidup ini tidak berarti.", c: "d" }
         ];
-        let currentQ = 0;
-        let scoreData = { d: 0, a: 0, s: 0 };
+        let qIdx = 0; let scores = { d: 0, a: 0, s: 0 };
 
         function startDass() { document.getElementById('dass-intro').classList.add('hidden'); document.getElementById('dass-quiz').classList.remove('hidden'); renderQ(); }
         function renderQ() {
-            document.getElementById('dass-question').innerText = questions[currentQ].t;
-            document.getElementById('dass-progress-text').innerText = `${currentQ + 1} / 21`;
-            document.getElementById('dass-progress-bar').style.width = `${((currentQ + 1) / 21) * 100}%`;
+            document.getElementById('dass-question').innerText = questions[qIdx].t;
+            document.getElementById('dass-progress-text').innerText = `${qIdx + 1} / 21`;
+            document.getElementById('dass-progress-bar').style.width = `${((qIdx + 1) / 21) * 100}%`;
         }
-        function answerDass(val) {
-            scoreData[questions[currentQ].c] += val;
-            if (currentQ < 20) { currentQ++; renderQ(); } else { showDassResults(); }
+        function answerDass(val) { scores[questions[qIdx].c] += val; if (qIdx < 20) { qIdx++; renderQ(); } else { showRes(); } }
+
+        function getDassLabel(val, type) {
+            const v = val * 2;
+            if (type === 'd') return v <= 9 ? "Normal" : v <= 13 ? "Ringan" : v <= 20 ? "Sedang" : "Parah";
+            if (type === 'a') return v <= 7 ? "Normal" : v <= 9 ? "Ringan" : v <= 14 ? "Sedang" : "Parah";
+            if (type === 's') return v <= 14 ? "Normal" : v <= 18 ? "Ringan" : v <= 25 ? "Sedang" : "Parah";
         }
 
-        function determineStatus(val, type) {
-            const final = val * 2;
-            if (type === 'd') { // Depression
-                if (final <= 9) return "Normal";
-                if (final <= 13) return "Ringan";
-                if (final <= 20) return "Sedang";
-                if (final <= 27) return "Parah";
-                return "Sangat-Parah";
-            }
-            if (type === 'a') { // Anxiety
-                if (final <= 7) return "Normal";
-                if (final <= 9) return "Ringan";
-                if (final <= 14) return "Sedang";
-                if (final <= 19) return "Parah";
-                return "Sangat-Parah";
-            }
-            if (type === 's') { // Stress
-                if (final <= 14) return "Normal";
-                if (final <= 18) return "Ringan";
-                if (final <= 25) return "Sedang";
-                if (final <= 33) return "Parah";
-                return "Sangat-Parah";
-            }
-        }
-
-        function showDassResults() {
+        function showRes() {
             document.getElementById('dass-quiz').classList.add('hidden');
             document.getElementById('dass-result').classList.remove('hidden');
-            const dS = determineStatus(scoreData.d, 'd'), aS = determineStatus(scoreData.a, 'a'), stS = determineStatus(scoreData.s, 's');
+            const d = getDassLabel(scores.d, 'd'), a = getDassLabel(scores.a, 'a'), s = getDassLabel(scores.s, 's');
             
             ['d','a','s'].forEach(key => {
-                const res = key === 'd' ? dS : key === 'a' ? aS : stS;
-                document.getElementById(`res-${key}`).innerText = res.replace('-',' ');
-                document.getElementById(`badge-${key}`).innerText = res.replace('-',' ');
+                const res = key === 'd' ? d : key === 'a' ? a : s;
+                document.getElementById(`res-${key}`).innerText = res;
+                document.getElementById(`badge-${key}`).innerText = res;
                 document.getElementById(`badge-${key}`).className = `status-badge mt-4 inline-block bg-status-${res}`;
                 document.getElementById(`card-${key}`).className = `p-10 rounded-[3rem] border-2 shadow-inner transition-all duration-700 bg-status-${res}`;
             });
 
-            let advice = "";
-            if (dS === "Normal" && aS === "Normal" && stS === "Normal") {
-                advice = "Luar biasa! Harmoni jiwa Anda berada dalam level optimal. Kami merekomendasikan Anda untuk tetap menjaga keseimbangan ini guna mendukung produktivitas riset yang maksimal.";
-                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-green-500 bg-green-50 text-green-900";
-            } else if (dS === "Ringan" || aS === "Ringan" || stS === "Ringan") {
-                advice = "Anda menunjukkan indikasi ketegangan emosional ringan. Hal ini wajar dalam proses akademik yang intens, namun butuh perhatian. Kami menyarankan Anda mencoba beberapa produk kami seperti Aplikasi Shalawat kami sebagai elemen relaksasi harian.";
-                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-yellow-500 bg-yellow-50 text-yellow-900";
-            } else {
-                advice = "Hasil menunjukkan tingkat tekanan emosional yang cukup signifikan. Jangan biarkan riset Anda mengorbankan batin. Kami sangat menyarankan sesi konsultasi bimbingan yang humanis bersama tim ahli RRK.";
-                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-red-500 bg-red-50 text-red-900";
+            let adv = "";
+            if (d === "Normal" && a === "Normal" && s === "Normal") { 
+                adv = "Harmoni jiwa Anda optimal! Tetap jaga keseimbangan ini guna mendukung produktivitas riset yang maksimal."; 
+                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-green-500 bg-green-50"; 
             }
-            document.getElementById('res-rec').innerText = advice;
+            else { 
+                adv = "Hasil menunjukkan indikasi tekanan emosional. Jangan biarkan riset mengorbankan batin. Kami merekomendasikan sesi bimbingan yang humanis atau terapi audio Shalawat."; 
+                document.getElementById('recommendation-box').className = "p-12 rounded-[3.5rem] mb-16 text-left shadow-2xl border-2 border-yellow-500 bg-yellow-50"; 
+            }
+            document.getElementById('res-rec').innerText = adv;
             lucide.createIcons();
         }
 
-        // STORE SYSTEM
-        let userCart = [];
-        function addToCart(n, p) {
-            if(userCart.find(i => i.n === n)) return;
-            userCart.push({n, p});
-            syncCartUI();
-            toggleCart();
-        }
-        function syncCartUI() {
+        // Cart Logic
+        let cart = [];
+        function addToCart(n, p) { if(cart.find(i => i.n === n)) return; cart.push({n, p}); updateUI(); toggleCart(); }
+        function updateUI() {
             const list = document.getElementById('cart-items'), footer = document.getElementById('cart-footer'), badge = document.getElementById('cart-count'), empty = document.getElementById('empty-cart-msg');
-            if(userCart.length === 0) { list.innerHTML = ''; empty.style.display = 'block'; footer.classList.add('hidden'); badge.classList.add('hidden'); }
+            if(cart.length === 0) { list.innerHTML = ''; empty.style.display = 'block'; footer.classList.add('hidden'); badge.classList.add('hidden'); }
             else {
                 empty.style.display = 'none';
-                list.innerHTML = userCart.map((i, x) => `
-                    <div class="flex justify-between items-center p-6 bg-slate-50 rounded-[2rem] border border-slate-100 shadow-sm">
-                        <div class="text-sm font-bold text-navy uppercase tracking-tight">${i.n}</div>
-                        <button onclick="popItem(${x})" class="text-red-400 p-2 hover:bg-red-50 rounded-full transition-all"><i data-lucide="trash-2" size="18"></i></button>
-                    </div>`).join('');
-                footer.classList.remove('hidden'); badge.classList.remove('hidden');
-                badge.innerText = userCart.length;
-                document.getElementById('cart-total').innerText = 'Rp ' + userCart.reduce((v, i) => v + i.p, 0).toLocaleString();
+                list.innerHTML = cart.map((i, x) => `<div class="flex justify-between items-center p-6 bg-slate-50 rounded-[2rem] border border-slate-100"><div><div class="text-sm font-bold text-navy uppercase">${i.n}</div><div class="text-gold font-bold">Rp ${i.p.toLocaleString()}</div></div><button onclick="rmv(${x})" class="text-red-400 p-2"><i data-lucide="trash-2" size="18"></i></button></div>`).join('');
+                footer.classList.remove('hidden'); badge.classList.remove('hidden'); badge.innerText = cart.length;
+                document.getElementById('cart-total').innerText = 'Rp ' + cart.reduce((v, i) => v + i.p, 0).toLocaleString();
                 lucide.createIcons();
             }
         }
-        function popItem(x) { userCart.splice(x, 1); syncCartUI(); }
-        function handleWaCheckout() { handleWa(`Halo RRK, saya mau pesan: ${userCart.map(i => i.n).join(', ')}. Mohon info pembayarannya.`); }
+        function rmv(x) { cart.splice(x, 1); updateUI(); }
         function handleWa(m) { window.open(`https://wa.me/6282125256660?text=${encodeURIComponent(m)}`, '_blank'); }
+        function handleWaCheckout() { handleWa(`Halo RRK, saya mau memesan: ${cart.map(i => i.n).join(', ')}.`); }
 
-        // STICKY NAVBAR SCROLL
+        // Sticky Navbar
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) { nav.classList.add('glass-nav', 'py-4', 'shadow-2xl'); }
-            else { nav.classList.remove('glass-nav', 'py-4', 'shadow-2xl'); }
+            if (window.scrollY > 50) nav.classList.add('glass-nav', 'py-4', 'shadow-2xl');
+            else nav.classList.remove('glass-nav', 'py-4', 'shadow-2xl');
         });
     </script>
 </body>
